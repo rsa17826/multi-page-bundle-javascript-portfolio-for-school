@@ -1,14 +1,15 @@
 import { defineConfig } from "vite"
 import { resolve } from "path"
 export default defineConfig({
-  base: resolve(__dirname, "./"),
+  // base: "multi-page-bundle",
   build: {
     outDir: "docs",
     rollupOptions: {
-      input: {
-        // main: resolve(__dirname, "src/main.js"),
-        main: resolve(__dirname, "index.html"),
-      },
+      input: [
+        resolve(__dirname, "js globals/allfuncs.js"),
+        resolve(__dirname, "js globals/live.js"),
+        resolve(__dirname, "index.html"),
+      ],
     },
   },
 })
