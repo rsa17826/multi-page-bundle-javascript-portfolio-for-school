@@ -32,6 +32,7 @@ export default defineConfig({
         "./ffopen/newelem.lib.js",
         "./ffopen/progress.lib.js",
         "./ffopen/protectedtextapi.lib.js",
+        "./ffopen/protectedtextlevelsaver.lib.js",
         "./ffopen/range.lib.js",
         "./ffopen/strict.lib.js",
         "./ffopen/toast.lib.js",
