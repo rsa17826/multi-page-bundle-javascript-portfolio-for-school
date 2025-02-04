@@ -3,7 +3,7 @@ import { resolve } from "path"
 import path from "path"
 export default defineConfig({
   // base: "multi-page-bundle",
-  assetsInclude: ["js globals/*"],
+  assetsInclude: ["js globals/*", "ffopen/*"],
   build: {
     outDir: "docs",
     rollupOptions: {
@@ -16,6 +16,26 @@ export default defineConfig({
         "./vid1 site clone/index.html",
         "./vid1 site clone/secret.html",
         "./bg color changer/index.html",
+        "./ffopen/index.html",
+        "./ffopen/libloader.js",
+        "./ffopen/allfuncs.lib.js",
+        "./ffopen/cache.lib.js",
+        "./ffopen/condencearraybynumber.lib.js",
+        "./ffopen/converter.lib.js",
+        "./ffopen/eruda.error.js",
+        "./ffopen/eruda.js",
+        "./ffopen/ffopener.lib.js",
+        "./ffopen/indexeddbls.lib.js",
+        "./ffopen/lzstring.lib.js",
+        "./ffopen/lzstring.lib.js",
+        "./ffopen/menu.lib.js",
+        "./ffopen/newelem.lib.js",
+        "./ffopen/progress.lib.js",
+        "./ffopen/protectedtextapi.lib.js",
+        "./ffopen/range.lib.js",
+        "./ffopen/strict.lib.js",
+        "./ffopen/toast.lib.js",
+        "./styles/style.css",
       ],
       output: {
         // If you find yourself fighting JS files appearing in assets, the following lines were things that didn't work.
