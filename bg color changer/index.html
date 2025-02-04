@@ -1,10 +1,8 @@
-<body>
-  sdaasdklasd dsajsdajasdasd
-</body>
-<div id="bg-hex-code"></div>
-<button id="btn">test</button>
+<div id="bg-hex-code">UNSET</div>
+<button id="btn">change the bg color</button>
 <script src="/js globals/libloader.js"></script>
 <script src="/js globals/allfuncs.js"></script>
+<script src="/js globals/live.js"></script>
 <script>
   const darkColorsArr = [
     "#2C3E50",
@@ -18,7 +16,7 @@
     "#2C3E50",
     "#800020",
   ]
-  window.a = loadlib("allfuncs")
+  const a = loadlib("allfuncs")
 
   const body = a.qs("body")
   const btn = a.qs("#btn")
@@ -29,3 +27,21 @@
     body.style.backgroundColor = color
   }
 </script>
+<p>
+  This project includes code and concepts from FreeCodeCamp. The code
+  was adapted from the FreeCodeCamp lesson on
+  <a
+    href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/learn-basic-debugging-by-building-a-random-background-color-changer/step-8"
+    >JavaScript Algorithms and Data Structures</a
+  >
+  <br />
+  their code:
+</p>
+<p>the var names: bgHexCodeSpanElement, btn, body, darkColorsArr</p>
+<p>the ids: btn, bg-hex-code</p>
+<p>the colors in the list darkColorsArr</p>
+<p>my code:</p>
+<p>the files: libloader, allfuncs</p>
+<p>the lines: const a = loadlib("allfuncs"), btn.onclick = () => {</p>
+<p>the functions: qs, loadlib, randfrom</p>
+<p>the object: a</p>
