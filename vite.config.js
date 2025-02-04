@@ -64,8 +64,11 @@ export default defineConfig({
             return "[name].[ext]"
           }
           const moduleDir = path.dirname(assetInfo.originalFileName)
+          console.log(assetInfo.originalFileNames)
           // console.debug({ assetInfo, moduleDir });
-          return moduleDir + "/[name].[ext]"
+          return assetInfo.originalFileName //moduleDir
+          // ? moduleDir + "/[name].[ext]"
+          // : "[name].[ext]"
         },
       },
     },
