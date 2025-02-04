@@ -1,0 +1,31 @@
+<body>
+  sdaasdklasd dsajsdajasdasd
+</body>
+<div id="bg-hex-code"></div>
+<button id="btn">test</button>
+<script src="/js globals/libloader.js"></script>
+<script src="/js globals/allfuncs.js"></script>
+<script>
+  const darkColorsArr = [
+    "#2C3E50",
+    "#34495E",
+    "#2C2C2C",
+    "#616A6B",
+    "#4A235A",
+    "#2F4F4F",
+    "#0E4B5A",
+    "#36454F",
+    "#2C3E50",
+    "#800020",
+  ]
+  window.a = loadlib("allfuncs")
+
+  const body = a.qs("body")
+  const btn = a.qs("#btn")
+  const bgHexCodeSpanElement = a.qs("#bg-hex-code")
+  btn.onclick = () => {
+    const color = a.randfrom(darkColorsArr)
+    bgHexCodeSpanElement.innerText = color
+    body.style.backgroundColor = color
+  }
+</script>
