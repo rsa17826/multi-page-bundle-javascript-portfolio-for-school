@@ -3,7 +3,7 @@ import { resolve } from "path"
 export default defineConfig({
   // base: "multi-page-bundle",
   build: {
-    outDir: "docs",
+    outDir: "ffopen",
     rollupOptions: {
       input: [
         resolve(__dirname, "js globals/allfuncs.js"),
