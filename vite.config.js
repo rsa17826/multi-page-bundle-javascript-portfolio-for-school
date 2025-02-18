@@ -38,7 +38,8 @@ export default defineConfig({
         "./ffopen/toast.lib.js",
         "./styles/style.css",
         "./nav/nav.js",
-        "./nav/nav.css"
+        "./nav/nav.css",
+        "./imgs/mainlogo.png",
       ],
       output: {
         // If you find yourself fighting JS files appearing in assets, the following lines were things that didn't work.
