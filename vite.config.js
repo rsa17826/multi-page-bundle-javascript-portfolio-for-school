@@ -3,7 +3,12 @@ import { resolve } from "path"
 import path from "path"
 export default defineConfig({
   base: "/multi-page-bundle",
-  assetsInclude: ["js globals/*.js", "ffopen/*.js", "nav/*.ajs"],
+  assetsInclude: [
+    "js globals/*.js",
+    "ffopen/*.js",
+    "nav/*.js",
+    "Palindrome Checker Project/*.js",
+  ],
   build: {
     outDir: "docs",
     rollupOptions: {
@@ -41,6 +46,8 @@ export default defineConfig({
         "./nav/nav.js",
         "./nav/nav.css",
         "./imgs/mainlogo.png",
+        "./Palindrome Checker Project/index.html",
+        "./Palindrome Checker Project/script.js",
       ],
       output: {
         // If you find yourself fighting JS files appearing in assets, the following lines were things that didn't work.

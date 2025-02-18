@@ -23,7 +23,10 @@
       a.newelem("a", {
         innerHTML: "bg color changer",
         href: "/multi-page-bundle/bg color changer/",
-        disabled: 1,
+      }),
+      a.newelem("a", {
+        innerHTML: "Palindrome Checker Project",
+        href: "/multi-page-bundle/Palindrome Checker Project/",
       }),
     ])
   )
