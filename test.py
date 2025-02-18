@@ -24,51 +24,33 @@ class ChangeHandler(FileSystemEventHandler):
 
         if event.event_type in ["modified", "created", "deleted"]:
             print(f"Change detected: {event.src_path}")
-            self.reset_debounce_timer()
+            if self.debounce_timer is not None:
+                self.debounce_timer.cancel()
 
-    def reset_debounce_timer(self):
-        # Cancel the previous timer if it exists
-        if self.debounce_timer is not None:
-            self.debounce_timer.cancel()
+            self.debounce_timer = Timer(self.debounce_time, self.build)
+            self.debounce_timer.start()
 
-        # Start a new timer
-        self.debounce_timer = Timer(self.debounce_time, self.restart_process)
-        self.debounce_timer.start()
-
-    def restart_process(self):
-
-        # Start the new process
+    def build(self):
         print("Starting new process...")
         self.process = subprocess.Popen(
             ["cmd.exe", "/c", "npm run build"],
             shell=True,
-            # stdout=subprocess.PIPE,
-            # stderr=subprocess.PIPE,
-        )  
+        )
 
-  # git add .
-  # git commit -m "starting to add nav bar"
-  # git push
+
 #   git add . ; git commit -m "added the Palindrome Checker Project page and updated it to add the nav" ; git push
 
-def main():
-    path = os.path.dirname(
-        os.path.abspath(__file__)
-    )  # Watch the directory of the script
-    event_handler = ChangeHandler()
-    observer = Observer()
-    observer.schedule(event_handler, path, recursive=True)
-    event_handler.restart_process()
-    print(f"Watching for changes in: {path}")
-    observer.start()
+path = os.path.dirname(os.path.abspath(__file__))
+event_handler = ChangeHandler()
+observer = Observer()
+observer.schedule(event_handler, path, recursive=True)
+event_handler.build()
+print(f"Watching for changes in: {path}")
+observer.start()
 
-    try:
-        while True:
-            time.sleep(1)  # Keep the script running
-    except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
-
-
-if __name__ == "__main__":
-    main()
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    observer.stop()
+observer.join()
