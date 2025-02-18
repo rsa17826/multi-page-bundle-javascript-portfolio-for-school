@@ -598,7 +598,7 @@
         Object.assign(elem, data)
       }
       if (typeof parent == "string") parent = a.qs(parent)
-      a.ignore(() => parent.appendChild(elem))
+      parent?.appendChild?.(elem)
       return elem
     },
     function ({
@@ -617,7 +617,29 @@
       return end()
     }
   )
-
+  a.newelem = newfunc(
+    function newelem(type, data = {}, inside = []) {
+      var parent = a(null).createelem(type, data).val
+      inside.forEach((elem) => {
+        parent.appendChild(elem)
+      })
+      return parent
+    },
+    function ({
+      ifunset,
+      gettype,
+      end,
+      maketype,
+      trymaketype,
+      trygettype,
+      args: [type, data, inside],
+    }) {
+      ifunset([null, {}, []])
+      type = maketype(type, ["string"])
+      data = maketype(data, ["object", "undefined", "null"])
+      inside = maketype(inside, ["array", "undefined", "null"])
+    }
+  )
   a.gettype = newfunc(
     function gettype(thing, match) {
       if (

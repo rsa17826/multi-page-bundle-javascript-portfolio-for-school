@@ -3,12 +3,11 @@ import { resolve } from "path"
 import path from "path"
 export default defineConfig({
   // base: "multi-page-bundle",
-  assetsInclude: ["js globals/*", "ffopen/*"],
+  assetsInclude: ["js globals/*", "ffopen/*", "nav/*"],
   build: {
     outDir: "docs",
     rollupOptions: {
       input: [
-        // Single instance shared with every tab
         "./js globals/libloader.js",
         "./js globals/allfuncs.js",
         "./js globals/live.js",
@@ -37,6 +36,7 @@ export default defineConfig({
         "./ffopen/strict.lib.js",
         "./ffopen/toast.lib.js",
         "./styles/style.css",
+        "./nav/nav.js"
       ],
       output: {
         // If you find yourself fighting JS files appearing in assets, the following lines were things that didn't work.
