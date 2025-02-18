@@ -5,6 +5,7 @@ head {
 nav {
   width: 100vw;
   height: fit-content;
+  max-height: 20px !important;
   position: fixed;
   top: 0;
   left: 0;
@@ -16,7 +17,7 @@ nav {
   padding: 7px;
   gap: 5px;
 }
-nav > a {
-  color: var(--root-color);
+nav > * {
+  color: var(--main-light);
   text-shadow: 0px 0px 10px var(--text-shadow-color);
 }

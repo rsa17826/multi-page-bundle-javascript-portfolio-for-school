@@ -1,14 +1,1 @@
-;(async function () {
-  const a = loadlib("allfuncs")
-  await a.bodyload()
-  document.body.appendChild(
-    a.newelem("nav", {}, [
-      a.newelem("img", {
-        src: "./imgs/mainlogo.png",
-        maxWidth: "20px",
-        maxHeight: "20px",
-      }),
-      a.newelem("a", { innerHTML: "home", href: "/" }),
-    ])
-  )
-})()
+(async function(){const e=loadlib("allfuncs");await e.bodyload(),document.body.appendChild(e.newelem("nav",{},[e.newelem("img",{src:"/multi-page-bundle/imgs/mainlogo.png",maxWidth:"20px",maxHeight:"20px"}),e.newelem("a",{innerHTML:"home",href:"/multi-page-bundle/"}),e.newelem("a",{innerHTML:"ffopen",href:"/multi-page-bundle/ffopen/"}),e.newelem("a",{innerHTML:"vid1 site clone",href:"/multi-page-bundle/vid1%20site%20clone/"}),e.newelem("a",{innerHTML:"bg color changer",href:"/multi-page-bundle/bg color changer/",disabled:1})]))})();

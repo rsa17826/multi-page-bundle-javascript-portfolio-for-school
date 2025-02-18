@@ -3,7 +3,7 @@ import { resolve } from "path"
 import path from "path"
 export default defineConfig({
   base: "/multi-page-bundle",
-  assetsInclude: ["js globals/*", "ffopen/*", "nav/*.js"],
+  assetsInclude: ["js globals/*.js", "ffopen/*.js", "nav/*.ajs"],
   build: {
     outDir: "docs",
     rollupOptions: {
@@ -36,7 +36,8 @@ export default defineConfig({
         "./ffopen/range.lib.js",
         "./ffopen/strict.lib.js",
         "./ffopen/toast.lib.js",
-        "./styles/style.css",
+        "./styles/root.css",
+        "./styles/mainstyle.css",
         "./nav/nav.js",
         "./nav/nav.css",
         "./imgs/mainlogo.png",

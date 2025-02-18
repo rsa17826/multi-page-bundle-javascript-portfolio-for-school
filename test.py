@@ -49,7 +49,7 @@ class ChangeHandler(FileSystemEventHandler):
   # git add .
   # git commit -m "starting to add nav bar"
   # git push
-#   git add . ; git commit -m "starting to add nav bar" ; git push
+#   git add . ; git commit -m "added nav bar to all pages and added all links to the nav bar" ; git push
 
 def main():
     path = os.path.dirname(
