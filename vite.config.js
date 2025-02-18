@@ -3,7 +3,7 @@ import { resolve } from "path"
 import path from "path"
 export default defineConfig({
   // base: "multi-page-bundle",
-  assetsInclude: ["js globals/*", "ffopen/*", "nav/*"],
+  assetsInclude: ["js globals/*", "ffopen/*", "nav/*.js"],
   build: {
     outDir: "docs",
     rollupOptions: {
@@ -11,6 +11,7 @@ export default defineConfig({
         "./js globals/libloader.js",
         "./js globals/allfuncs.js",
         "./js globals/live.js",
+        "./js globals/betterlogs.js",
         "./index.html",
         "./vid1 site clone/index.html",
         "./vid1 site clone/secret.html",
@@ -36,7 +37,8 @@ export default defineConfig({
         "./ffopen/strict.lib.js",
         "./ffopen/toast.lib.js",
         "./styles/style.css",
-        "./nav/nav.js"
+        "./nav/nav.js",
+        "./nav/nav.css"
       ],
       output: {
         // If you find yourself fighting JS files appearing in assets, the following lines were things that didn't work.

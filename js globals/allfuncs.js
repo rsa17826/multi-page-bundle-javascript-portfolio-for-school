@@ -1,4 +1,6 @@
+// fix gettype in test func
 /*
+// @noregex
 // @name remove ai comments
 // @regex (//) \.\.\..*
 // @replace
@@ -65,7 +67,7 @@
          * @param {...*} input - The default values to set.
          */
         ifunset: function ifunset(...newinputs) {
-          for (var i of newinputs) {
+          for (var i in newinputs) {
             if (inputargs[i] === undefined)
               inputargs[i] = newinputs[i]
           }
@@ -91,6 +93,7 @@
          * @returns {Error|true}
          */
         maketype: function maketype(thing, types) {
+          // if (types.includes("any")) return true
           if (gettype(thing, types)) return true
           for (var type of types) {
             if (gettype(thing, "string") && type == "number") {
@@ -619,7 +622,7 @@
   )
   a.newelem = newfunc(
     function newelem(type, data = {}, inside = []) {
-      var parent = a(null).createelem(type, data).val
+      var parent = a.createelem(null, type, data)
       inside.forEach((elem) => {
         parent.appendChild(elem)
       })
@@ -637,7 +640,8 @@
       ifunset([null, {}, []])
       type = maketype(type, ["string"])
       data = maketype(data, ["object", "undefined", "null"])
-      inside = maketype(inside, ["array", "undefined", "null"])
+      maketype(inside, ["array", "undefined", "null"])
+      return end()
     }
   )
   a.gettype = newfunc(
@@ -703,6 +707,7 @@
       trygettype,
       args: [_thing, match],
     }) {
+      // _thing = maketype(_thing, ["any"])
       match = maketype(match, ["array", "string", "none"])
       return end()
     }
@@ -1282,6 +1287,7 @@
     function ({
       end,
       args: [func, count, delay, instantstart, waituntildone],
+      maketype,
     }) {
       func = maketype(func, ["function"]) // Ensure func is a function
       count = maketype(count, ["number"]) // Ensure count is a number
@@ -2862,21 +2868,13 @@
   )
 
   a.randstr = newfunc(
-    function randstr(
-      {
-        lower = true,
-        upper = false,
-        number = false,
-        symbol = false,
-        length = 20,
-      } = {
-        lower: true,
-        upper: false,
-        number: false,
-        symbol: false,
-        length: 20,
-      }
-    ) {
+    function randstr({
+      lower = true,
+      upper = false,
+      number = false,
+      symbol = false,
+      length = 20,
+    }) {
       var rand = ""
       a.repeat(() => {
         rand += a.randfrom(
@@ -2889,8 +2887,17 @@
       }, length)
       return rand
     },
-    function ({ end, maketype, args: [options] }) {
-      options = maketype(options, ["object"]) // Ensure options is an object
+    function ({ end, maketype, args: [options], ifunset }) {
+      ifunset([
+        {
+          lower: true,
+          upper: false,
+          number: false,
+          symbol: false,
+          length: 20,
+        },
+      ])
+      options = maketype(options, ["object", "undefined"]) // Ensure options is an object
       return end()
     }
   )

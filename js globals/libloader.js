@@ -27,10 +27,8 @@ JSON.tryparse ??= function (...args) {
 }
 ;(async () => {
   var err
-  var optionsmenu
   var userliboptions = {}
   var sp
-  var usels = false
   const loadedscripts = {
     libloader: {
       savelib,
@@ -40,54 +38,6 @@ JSON.tryparse ??= function (...args) {
     },
   }
   var menus = []
-  try {
-    try {
-      sp = new storageproxy("globaloptions")
-      userliboptions = sp.get()
-      //       unsafeWindow.sp = sp
-    } catch (e) {
-      usels = true
-      userliboptions = JSON.tryparse(localStorage.libloaderuseroptions) ?? {}
-    }
-    waitforlib("strict").then(() => {
-      waitforlib("menu").then(() => {
-        optionsmenu = loadlib("menu")
-        menus = menus.map(tomenu)
-        //         warn(menus)
-        menus.forEach(({ name, menu }) => {
-          if (sp)
-            GM_registerMenuCommand(
-              `lib options: ${name}`,
-              () => {
-                userliboptions = sp.get()
-                menu.show()
-              },
-              {
-                accessKey: userliboptions[name].accessKey,
-              },
-            )
-          else menu //.show()
-        })
-      })
-    })
-  } catch (e) {
-    console.error(e)
-  }
-  function tomenu(menu) {
-    return {
-      name: menu[0],
-      menu: new optionsmenu(userliboptions[menu[0]], formatformat(menu), {
-        noclosebutton: false,
-        position: "unset",
-        onchange: usels
-          ? function (...a) {
-              log(...a)
-              localStorage.libloaderuseroptions = JSON.stringify(userliboptions)
-            }
-          : log,
-      }),
-    }
-  }
   async function waitforlib(name) {
     return new Promise((done) => {
       if (loadedscripts[name]) return done()
@@ -134,63 +84,7 @@ JSON.tryparse ??= function (...args) {
         }
       }
       loadedscripts[name] = obj
-      if (liboptions) {
-        var temp = {}
-        Object.entries(liboptions).forEach(([key, val]) => {
-          if (!("default" in liboptions[key]))
-            throw new Error(`default ${name} ${key} is missing default peram`)
-          temp[key] = val.default
-          //           delete liboptions[key].default
-        })
-        userliboptions[name] = {
-          ...temp,
-          ...(userliboptions[name] ?? {}),
-        }
-        //         if (sp)
-        log(liboptions)
-        liboptions = {
-          ...liboptions,
-          accessKey: {
-            type: "key",
-            keyreturntype: "string",
-            allowmodifiers: false,
-            ignorekeycase: true,
-          },
-        }
-        if (optionsmenu) {
-          menus.push(tomenu(liboptions))
-        } else {
-          menus.push([name, liboptions])
-        }
-      }
-      if (userliboptions[name]) {
-        return new Proxy(userliboptions[name], {
-          get(_obj, prop) {
-            if (prop == "accessKey") return undefined
-            if (sp) userliboptions = sp.get()
-            if (prop in liboptions) return Reflect.get(_obj, prop)
-            else throw new Error(`no default set for user option ${prop}`)
-          },
-          set() {},
-          deleteProperty() {},
-        })
-      }
     }
-  }
-  function formatformat([name, obj]) {
-    var newobj = []
-    Object.entries(obj).forEach(([key, val]) => {
-      newobj.push({ text: key, ...loadlib("strict").setformat(val), key })
-    })
-    newobj.push({
-      text: "copy settings object",
-      type: "button",
-      buttontext: "copy",
-      onclick() {
-        navigator.clipboard.writeText(JSON.stringify(userliboptions))
-      },
-    })
-    return newobj
   }
   Object.assign(sp ? unsafeWindow : window, {
     loadlib,

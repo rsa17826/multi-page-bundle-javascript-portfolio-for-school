@@ -1,11 +1,9 @@
 ;(async function () {
-  debugger
   const a = loadlib("allfuncs")
   await a.bodyload()
-  log(1111)
   document.body.appendChild(
     a.newelem(
-      "div",
+      "nav",
       {
         width: "100vw",
         height: "40px",
@@ -16,7 +14,7 @@
         flexDirection: "row",
         backgroundColor: "red",
       },
-      [a.newelem("p", { innerHTML: "test" })]
+      [a.newelem("a", { innerHTML: "home", href: "/" })]
     )
   )
-})
+})()

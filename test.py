@@ -11,10 +11,9 @@ class ChangeHandler(FileSystemEventHandler):
     def __init__(self):
         self.process = None
         self.debounce_timer = None
-        self.debounce_time = 2  # 7 seconds debounce time
+        self.debounce_time = 2
 
     def on_any_event(self, event):
-        # Ignore events that are not file modifications
         if (
             "docs" in event.src_path
             or "node_modules" in event.src_path
@@ -37,31 +36,15 @@ class ChangeHandler(FileSystemEventHandler):
         self.debounce_timer.start()
 
     def restart_process(self):
-        # Kill the old process if it exists
-        if self.process:
-            if self.process.poll() is None:
-                print("Process did not terminate, killing again...")
-                self.process.kill()  # Try to kill again if it's still running
-            print("Killing the old process...")
-            self.process.kill()  # Forcefully kill the process
-            self.process.wait()  # Wait for the process to terminate
-
-            # Check if the process is still alive
-
-        # Optional: Add a short delay before starting the new process
-        time.sleep(1)
 
         # Start the new process
         print("Starting new process...")
         self.process = subprocess.Popen(
-            ["cmd.exe", "/c", "npm run build && npm run preview"],
+            ["cmd.exe", "/c", "npm run build"],
             shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            # stdout=subprocess.PIPE,
+            # stderr=subprocess.PIPE,
         )  
-        stdout, stderr = self.process.communicate()
-        print(stdout.decode())
-        print(stderr.decode())
 
   # git add .
   # git commit -m "starting to add nav bar"
