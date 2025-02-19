@@ -38,7 +38,7 @@ class ChangeHandler(FileSystemEventHandler):
         )
 
 
-#   git add . ; git commit -m "added the Palindrome Checker Project page and updated it to add the nav" ; git push
+#   git add . ; git commit -m "removed mainstyle.css" ; git push
 
 path = os.path.dirname(os.path.abspath(__file__))
 event_handler = ChangeHandler()
