@@ -10,13 +10,4 @@ the about section has a short informative description of the project
 
 the README is non-empty and informative
 
-there are no unprofessional or sloppy features
-
-the site is accessible
-
-color contrasts are appropriate
-
 pages are usable with a screen-reader 
-
-the source code does not contain extraneous or unnecessary code or files
-

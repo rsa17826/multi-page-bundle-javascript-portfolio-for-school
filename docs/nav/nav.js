@@ -1,30 +1,8 @@
 ;(async function () {
   if (!window.loadlib) {
     alert("include allfuncs first")
-    // eval(
-    //   await (
-    //     await fetch("/multi-page-bundle-javascript/js globals/libloader.js")
-    //   ).text()
-    // )
-    // eval(
-    //   await (
-    //     await fetch("/multi-page-bundle-javascript/js globals/allfuncs.js")
-    //   ).text()
-    // )
   }
   const a = loadlib("allfuncs")
-  // document.head.appendChild(
-  //   a.newelem("link", {
-  //     rel: "stylesheet",
-  //     href: "/multi-page-bundle-javascript/styles/root.css",
-  //   })
-  // )
-  // document.head.appendChild(
-  //   a.newelem("link", {
-  //     rel: "stylesheet",
-  //     href: "/multi-page-bundle-javascript/nav/nav.css",
-  //   })
-  // )
   var colorPicker, colorPickerDisplay
   const elems = a.newelem("nav", {}, [
     a.newelem("img", {

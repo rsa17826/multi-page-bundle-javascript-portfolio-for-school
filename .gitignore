@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+a.git*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
