@@ -13,13 +13,12 @@ SetWorkingDir(A_ScriptDir)
 
 getcmd(opts := '') {
   cmds := WinGetList("ahk_exe cmd.exe")
-  dhw := A_DetectHiddenWindows
-  DetectHiddenWindows(1)
+  if opts.includes("hide")
+    DetectHiddenWindows(1)
   run("cmd.exe", , opts)
   while 1 {
     cmd := (newlist := WinGetList("ahk_exe cmd.exe")).find(e => !cmds.includes(e))
     if cmd {
-      A_DetectHiddenWindows := dhw
       return newlist[cmd]
     }
   }
