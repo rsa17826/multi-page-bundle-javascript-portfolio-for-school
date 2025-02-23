@@ -20,9 +20,11 @@
     black 90%
   );
 
+  --main-darkish: color-mix(in srgb, var(--root-color), black 30%);
   --main-dark: color-mix(in srgb, var(--root-color), black 60%);
   --main-darker: color-mix(in srgb, var(--root-color), black 75%);
   --main-darkest: color-mix(in srgb, var(--root-color), black 90%);
+  --main-lightish: color-mix(in srgb, var(--root-color), white 30%);
   --main-light: color-mix(in srgb, var(--root-color), white 60%);
   --main-lighter: color-mix(in srgb, var(--root-color), white 75%);
   --main-lightest: color-mix(in srgb, var(--root-color), white 90%);

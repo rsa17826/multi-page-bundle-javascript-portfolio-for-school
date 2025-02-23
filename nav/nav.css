@@ -30,7 +30,7 @@ input[type="color"] {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  border: 2px solid #000000;
+  border: 2px solid var(--main-lightish);
   cursor: pointer;
   background-color: var(--root-color);
   display: inline-block;
