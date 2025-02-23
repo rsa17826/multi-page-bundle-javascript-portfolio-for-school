@@ -38,7 +38,7 @@ class ChangeHandler(FileSystemEventHandler):
         )
 
 
-#   git add . ; git commit -m "fixed main.css links" ; git push
+#   git add . ; git commit -m "removed unused css styles and added a sitewide color picker to allow changing global site colors" ; git push
 
 path = os.path.dirname(os.path.abspath(__file__))
 event_handler = ChangeHandler()

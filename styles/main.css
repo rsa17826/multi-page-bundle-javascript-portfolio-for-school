@@ -7,6 +7,10 @@
   @endregex
 
   */
+
+body {
+  background-color: var(--main-darkest);
+}
 input:not(input[type="checkbox"]) {
   outline: 0;
   box-shadow: 0px 0px 5px var(--text-shadow-color);
@@ -18,9 +22,6 @@ label {
   color: var(--root-color);
   background-color: var(--bg-color);
   text-shadow: 0px 0px 5px var(--text-shadow-color);
-}
-.modified {
-  background-color: var(--modified-key-bg-color);
 }
 
 input[type="checkbox"],
@@ -43,10 +44,6 @@ html {
   display: none !important;
 }
 
-#main {
-  padding: 10px;
-}
-
 div,
 li,
 ul,
@@ -57,8 +54,11 @@ h4,
 h5,
 h6,
 p,
-a,
 button,
 h7 {
   color: var(--main-light) !important;
+}
+
+a {
+  color: var(--main-lighter) !important;
 }

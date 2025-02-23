@@ -25,6 +25,7 @@
   //     href: "/multi-page-bundle-javascript/nav/nav.css",
   //   })
   // )
+  var colorPicker, colorPickerDisplay
   const elems = a.newelem("nav", {}, [
     a.newelem("img", {
       src: "/multi-page-bundle-javascript/imgs/mainlogo.png",
@@ -55,7 +56,35 @@
       innerHTML: "Build a Roman Numeral Converter Project",
       href: "/multi-page-bundle-javascript/Build a Roman Numeral Converter Project/",
     }),
+    (colorPicker = a.newelem("input", {
+      type: "color",
+      id: "colorPicker",
+    })),
+    (colorPickerDisplay = a.newelem("label", {
+      for: "colorPicker",
+      class: "color-label",
+    })),
   ])
+  var defaultColor = getComputedStyle(document.documentElement)
+    .getPropertyValue("--root-color")
+    .trim()
+  setcol(
+    localStorage.rootColor ||
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--root-color")
+        .trim()
+  )
+  function setcol(col) {
+    document.documentElement.style.setProperty(
+      "--root-color",
+      (colorPicker.value = localStorage.rootColor = col)
+    )
+  }
+  colorPicker.oninput = (event) => setcol(event.target.value)
+  colorPickerDisplay.oncontextmenu = (e) => {
+    e.preventDefault()
+    setcol(defaultColor)
+  }
   await a.bodyload()
   document.body.appendChild(elems)
 })()
