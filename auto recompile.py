@@ -38,7 +38,7 @@ class ChangeHandler(FileSystemEventHandler):
         )
 
 
-#   git add . ; git commit -m "updated todo and links" ; git push
+#   git add . ; git commit -m "fixed main.css links" ; git push
 
 path = os.path.dirname(os.path.abspath(__file__))
 event_handler = ChangeHandler()

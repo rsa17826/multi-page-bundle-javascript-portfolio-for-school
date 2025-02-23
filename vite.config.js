@@ -43,7 +43,7 @@ export default defineConfig({
         "./ffopen/strict.lib.js",
         "./ffopen/toast.lib.js",
         "./styles/root.css",
-        "./styles/mainstyle.css",
+        "./styles/main.css",
         "./nav/nav.js",
         "./nav/nav.css",
         "./imgs/mainlogo.png",
