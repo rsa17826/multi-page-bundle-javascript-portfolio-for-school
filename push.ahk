@@ -13,17 +13,21 @@ SetWorkingDir(A_ScriptDir)
 
 getcmd(opts := '') {
   cmds := WinGetList("ahk_exe cmd.exe")
-  run("cmd.exe")
+  dhw := A_DetectHiddenWindows
+  DetectHiddenWindows(1)
+  run("cmd.exe", , opts)
   while 1 {
     cmd := (newlist := WinGetList("ahk_exe cmd.exe")).find(e => !cmds.includes(e))
-    if cmd
+    if cmd {
+      A_DetectHiddenWindows := dhw
       return newlist[cmd]
+    }
   }
 }
 msg := input("message", '', , , '').replace("\", '\\').replace('"', '\"')
 if !msg
   return
-cmd := getcmd()
+cmd := getcmd('hide')
 ControlSend('git add . {enter} git commit -m "', , cmd)
 ControlSendText(msg '"', , cmd)
 ControlSend('{enter}', , cmd)
@@ -33,3 +37,5 @@ ControlSend('{enter}git push{enter}', , cmd)
 Sleep(1000)
 ControlSend(envget("gitpass"), , cmd)
 ControlSend('{enter}', , cmd)
+Sleep(7000)
+WinClose(cmd)
