@@ -1252,8 +1252,14 @@
     function bodyload() {
       return new Promise((resolve) => {
         if (document.body) resolve()
-        const int = setInterval(() => {
-          if (document.body) resolve(clearInterval(int))
+        var observer = new MutationObserver(function () {
+          if (document.body) {
+            resolve()
+            observer.disconnect()
+          }
+        })
+        observer.observe(document.documentElement, {
+          childList: true,
         })
       })
     },

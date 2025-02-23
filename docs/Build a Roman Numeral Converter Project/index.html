@@ -1,0 +1,52 @@
+<link rel="stylesheet" href="/multi-page-bundle/styles/root.css" />
+<link rel="stylesheet" href="/multi-page-bundle/nav/nav.css" />
+<script src="/multi-page-bundle/js globals/libloader.js"></script>
+<script src="/multi-page-bundle/js globals/allfuncs.js"></script>
+<script src="/multi-page-bundle/nav/nav.js"></script>
+<script src="/multi-page-bundle/js globals/live.js"></script>
+
+<input id="number" /><button id="convert-btn">a</button>
+<div id="output"></div>
+
+<script>
+  Object.assign(window, console)
+  const qs = document.querySelector.bind(document)
+  qs("#convert-btn").onclick = () => {
+    var num = Number(qs("#number").value)
+    if (qs("#number").value != String(Number(qs("#number").value))) {
+      qs("#output").textContent = "Please enter a valid number"
+      return
+    } else if (num < 1) {
+      qs("#output").textContent =
+        "Please enter a number greater than or equal to 1"
+    } else if (num >= 4000) {
+      qs("#output").textContent =
+        "Please enter a number less than or equal to 3999"
+    } else {
+      const nums = [
+        ["M", 1000],
+        ["CM", 900],
+        ["D", 500],
+        ["CD", 400],
+        ["C", 100],
+        ["XC", 90],
+        ["L", 50],
+        ["XL", 40],
+        ["X", 10],
+        ["IX", 9],
+        ["V", 5],
+        ["IV", 4],
+        ["I", 1],
+      ]
+      var str = ""
+      for (var i of nums) {
+        while (num >= i[1]) {
+          str += i[0]
+          num -= i[1]
+        }
+      }
+
+      qs("#output").textContent = str
+    }
+  }
+</script>

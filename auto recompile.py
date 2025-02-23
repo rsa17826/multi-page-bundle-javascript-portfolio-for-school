@@ -38,7 +38,7 @@ class ChangeHandler(FileSystemEventHandler):
         )
 
 
-#   git add . ; git commit -m "removed mainstyle.css" ; git push
+#   git add . ; git commit -m "added Build a Roman Numeral Converter Project" ; git push
 
 path = os.path.dirname(os.path.abspath(__file__))
 event_handler = ChangeHandler()

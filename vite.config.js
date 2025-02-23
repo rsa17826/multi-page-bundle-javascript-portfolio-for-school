@@ -8,6 +8,7 @@ export default defineConfig({
     "ffopen/*.js",
     "nav/*.js",
     "Palindrome Checker Project/*.js",
+    "Build a Roman Numeral Converter Project/*.js",
   ],
   build: {
     outDir: "docs",
@@ -48,6 +49,7 @@ export default defineConfig({
         "./imgs/mainlogo.png",
         "./Palindrome Checker Project/index.html",
         "./Palindrome Checker Project/script.js",
+        "./Build a Roman Numeral Converter Project/index.html",
       ],
       output: {
         // If you find yourself fighting JS files appearing in assets, the following lines were things that didn't work.
