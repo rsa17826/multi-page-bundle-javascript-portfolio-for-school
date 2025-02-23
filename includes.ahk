@@ -21,16 +21,16 @@ SetWorkingDir(A_ScriptDir)
         <link
           rel="icon"
           type="image/x-icon"
-          href="/multi-page-bundle-javascript/imgs/mainlogo.png"
+          href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"
         />
-        <link rel="stylesheet" href="/multi-page-bundle-javascript/styles/root.css" />
-        <link rel="stylesheet" href="/multi-page-bundle-javascript/nav/nav.css" />
-        <script src="/multi-page-bundle-javascript/js globals/libloader.js"></script>
-        <script src="/multi-page-bundle-javascript/js globals/allfuncs.js"></script>
-        <script src="/multi-page-bundle-javascript/nav/nav.js"></script>
-        <script src="/multi-page-bundle-javascript/js globals/live.js"></script>
+        <link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css" />
+        <link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.css" />
+        <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.js"></script>
+        <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.js"></script>
+        <script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script>
+        <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script>
       )')
-      rep(&text, "main", '<link rel="stylesheet" href="/multi-page-bundle-javascript/styles/main.css" />')
+      rep(&text, "main", '<link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/main.css" />')
       f.write(p, text)
     }
     rep(&text, key, val) {

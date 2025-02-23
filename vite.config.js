@@ -2,7 +2,7 @@ import { defineConfig } from "vite"
 import { resolve } from "path"
 import path from "path"
 export default defineConfig({
-  base: "/multi-page-bundle-javascript",
+  base: "/multi-page-bundle-javascript-portfolio-for-school",
   assetsInclude: [
     "js globals/*.js",
     "ffopen/*.js",

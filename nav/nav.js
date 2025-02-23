@@ -6,33 +6,33 @@
   var colorPicker, colorPickerDisplay
   const elems = a.newelem("nav", {}, [
     a.newelem("img", {
-      src: "/multi-page-bundle-javascript/imgs/mainlogo.png",
+      src: "/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png",
       maxWidth: "15px",
       maxHeight: "15px",
     }),
     a.newelem("a", {
       innerHTML: "home",
-      href: "/multi-page-bundle-javascript/",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/",
     }),
     a.newelem("a", {
       innerHTML: "ffopen",
-      href: "/multi-page-bundle-javascript/ffopen/",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/ffopen/",
     }),
     a.newelem("a", {
       innerHTML: "vid1 site clone",
-      href: "/multi-page-bundle-javascript/vid1%20site%20clone/",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/vid1%20site%20clone/",
     }),
     a.newelem("a", {
       innerHTML: "bg color changer",
-      href: "/multi-page-bundle-javascript/bg color changer/",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/bg color changer/",
     }),
     a.newelem("a", {
       innerHTML: "Palindrome Checker Project",
-      href: "/multi-page-bundle-javascript/Palindrome Checker Project/",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/Palindrome Checker Project/",
     }),
     a.newelem("a", {
       innerHTML: "Build a Roman Numeral Converter Project",
-      href: "/multi-page-bundle-javascript/Build a Roman Numeral Converter Project/",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/Build a Roman Numeral Converter Project/",
     }),
     (colorPicker = a.newelem("input", {
       type: "color",
