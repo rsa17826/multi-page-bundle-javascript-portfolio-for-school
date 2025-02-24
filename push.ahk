@@ -9,7 +9,6 @@ SetWorkingDir(A_ScriptDir)
 #Include *i <vars>
 
 #Include <Misc>
-#Include <base>
 
 getcmd(opts := '') {
   cmds := WinGetList("ahk_exe cmd.exe")
