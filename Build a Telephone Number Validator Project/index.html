@@ -1,0 +1,42 @@
+<!-- nav includes start --><link rel="icon" type="image/x-icon" href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"/><link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css" /><link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.css" /><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script><!-- nav includes end -->
+<input id="user-input" aria-label="telephone number input" />
+<button id="check-btn">check</button>
+<button id="clear-btn">clear</button>
+<div id="results-div"></div>
+<script>
+  const qs = document.querySelector.bind(document)
+  // have to add these because of this error
+  window.userInput = qs("#user-input")
+  window.checkBtn = qs("#check-btn")
+  window.resultsDiv = qs("#check-btn")
+  //   // running tests
+  // 35. When the #user-input element contains a valid US number and the #check-btn element is clicked, the #results-div element should contain the text "Valid US number: " followed by the number.
+  // 36. When the #user-input element contains an invalid US number and the #check-btn element is clicked, the #results-div element should contain the text "Invalid US number: " followed by the number.
+  // // tests completed
+  // // console output
+  // [ReferenceError: resultsDiv is not defined]
+  // [ReferenceError: resultsDiv is not defined]
+
+  qs("#clear-btn").onclick = () => {
+    set()
+  }
+  function set(val = "") {
+    qs("#results-div").textContent = val
+  }
+  qs("#check-btn").onclick = () => {
+    var val = qs("#user-input").value
+    if (
+      /^(?:1\s?)?(?:\(\d{3}\)|\d{3})[\s\-]?\d{3}[\s\-]?\d{4}$/.test(
+        val
+      )
+    ) {
+      set("Valid US number: " + val)
+    } else {
+      set("Invalid US number: " + val)
+    }
+    if (!val) {
+      set("Invalid US number: " + val)
+      alert("Please provide a phone number")
+    }
+  }
+</script>

@@ -50,6 +50,7 @@ export default defineConfig({
         "./Palindrome Checker Project/index.html",
         "./Palindrome Checker Project/script.js",
         "./Build a Roman Numeral Converter Project/index.html",
+        "./Build a Telephone Number Validator Project/index.html",
       ],
       output: {
         // If you find yourself fighting JS files appearing in assets, the following lines were things that didn't work.

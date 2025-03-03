@@ -34,6 +34,10 @@
       innerHTML: "Build a Roman Numeral Converter Project",
       href: "/multi-page-bundle-javascript-portfolio-for-school/Build a Roman Numeral Converter Project/",
     }),
+    a.newelem("a", {
+      innerHTML: "Build a Telephone Number Validator Project",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/Build a Telephone Number Validator Project/",
+    }),
     (colorPicker = a.newelem("input", {
       type: "color",
       id: "colorPicker",

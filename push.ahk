@@ -25,7 +25,7 @@ getcmd(opts := '') {
 msg := input("message", '', , , '').replace("\", '\\').replace('"', '\"')
 if !msg
   return
-cmd := getcmd('hide')
+cmd := getcmd('')
 ControlSend('git add . {enter} git commit -m "', , cmd)
 ControlSendText(msg '"', , cmd)
 ControlSend('{enter}', , cmd)
