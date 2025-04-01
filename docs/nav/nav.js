@@ -79,6 +79,10 @@ nav > a {
       innerHTML: "Build a Telephone Number Validator Project",
       href: "/multi-page-bundle-javascript-portfolio-for-school/Build a Telephone Number Validator Project/",
     }),
+    a.newelem("a", {
+      innerHTML: "custom start page",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/custom start page/",
+    }),
     (colorPicker = a.newelem("input", {
       type: "color",
       id: "colorPicker",
