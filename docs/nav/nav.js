@@ -6,7 +6,9 @@
   var colorPicker, colorPickerDisplay
   const elems = a.newelem("nav", {}, [
     a.newelem("style", {
-      innerHTML: ` body,
+      innerHTML: `
+* { font-family: initial }
+body,
 nav {
   width: 100vw;
   height: fit-content;
@@ -44,7 +46,8 @@ input[type="color"] {
 
 nav > a {
   color: var(--main-lighter);
-}`,
+}
+`,
     }),
     a.newelem("img", {
       src: "/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png",
@@ -115,12 +118,12 @@ nav > a {
   await a.bodyload()
   a.createelem(document.body, "style", {
     innerHTML: `body, head {
-  margin-top: 45px;
-}`,
+      margin-top: 45px;
+    }`,
   })
   a.createelem(document.body, "div", {})
     .attachShadow({
-      mode: "closed",
+      mode: "open",
     })
     .appendChild(elems)
 })()
