@@ -38,8 +38,6 @@ class ChangeHandler(FileSystemEventHandler):
         )
 
 
-#   git add . ; git commit -m "fixed color picker border color" ; git push
-
 path = os.path.dirname(os.path.abspath(__file__))
 event_handler = ChangeHandler()
 observer = Observer()

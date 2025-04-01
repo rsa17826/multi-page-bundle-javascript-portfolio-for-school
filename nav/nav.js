@@ -2,6 +2,9 @@
   if (!window.loadlib) {
     alert("include allfuncs first")
   }
+  if ((location.hash == "#nonav")) {
+    return
+  }
   const a = loadlib("allfuncs")
   var colorPicker, colorPickerDisplay
   const elems = a.newelem("nav", {}, [
