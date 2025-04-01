@@ -5,6 +5,47 @@
   const a = loadlib("allfuncs")
   var colorPicker, colorPickerDisplay
   const elems = a.newelem("nav", {}, [
+    a.newelem("style", {
+      innerHTML: ` body,
+nav {
+  width: 100vw;
+  height: fit-content;
+  max-height: 20px !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--main-darker);
+  border-bottom: 2px solid var(--main-light);
+  padding: 7px;
+  gap: 5px;
+}
+nav > * {
+  color: var(--main-light);
+  text-shadow: 0px 0px 10px var(--text-shadow-color);
+}
+
+input[type="color"] {
+  display: none;
+}
+
+.color-label {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid var(--main-lightish);
+  cursor: pointer;
+  background-color: var(--root-color);
+  display: inline-block;
+  box-shadow: 0px 0px 10px var(--text-shadow-color);
+}
+
+nav > a {
+  color: var(--main-lighter);
+}`,
+    }),
     a.newelem("img", {
       src: "/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png",
       maxWidth: "15px",
@@ -68,5 +109,14 @@
     setcol(defaultColor)
   }
   await a.bodyload()
-  document.body.appendChild(elems)
+  a.createelem(document.body, "style", {
+    innerHTML: `body, head {
+  margin-top: 45px;
+}`,
+  })
+  a.createelem(document.body, "div", {})
+    .attachShadow({
+      mode: "closed",
+    })
+    .appendChild(elems)
 })()

@@ -24,9 +24,8 @@ SetWorkingDir(A_ScriptDir)
           href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"
         />
         <link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css" />
-        <link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.css" />
-        <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.js"></script>
-        <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.js"></script>
+        <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script>
+        <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script>
         <script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script>
         <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script>
       )')

@@ -2,25 +2,14 @@
   Live.js - One script closer to Designing in the Browser
   Written for Handcraft.com by Martin Kool (@mrtnkl).
 
-  Version 4.
-  Recent change: Made stylesheet and mimetype checks case insensitive.
-
-  http://livejs.com
-  http://livejs.com/license (MIT)  
-  @livejs
-
-  Include live.js#css to monitor css changes only.
-  Include live.js#js to monitor js changes only.
-  Include live.js#html to monitor html changes only.
-  Mix and match to monitor a preferred combination such as live.js#html,css  
-
-  By default, just include live.js to monitor all css, js and html changes.
-  
-  Live.js can also be loaded as a bookmarklet. It is best to only use it for CSS then,
+@@ -20,263 +20,216 @@
   as a page reload due to a change in html or css would not re-include the bookmarklet.
   To monitor CSS and be notified that it has loaded, include it as: live.js#css,notify
 */
 ;(function () {
+  // if (location.href.includes(".github.io/")) {
+  //   return
+  // }
   var headers = {
       Etag: 1,
       "Last-Modified": 1,
@@ -36,6 +25,7 @@
     active = { html: 1, css: 1, js: 1 }
 
   var Live = {
+    sentmsg: false,
     // performs a cycle per interval
     heartbeat: function () {
       if (document.body) {
@@ -152,6 +142,13 @@
             }
             // if changed, act
             if (hasChanged) {
+              if (!newValue && !contentType) {
+                if (window.toast) {
+                  window.toast("offline", "red")
+                }
+                console.error("offline")
+                return
+              }
               Live.refreshResource(url, contentType)
               break
             }
@@ -162,7 +159,6 @@
 
     // act upon a changed url of certain content type
     refreshResource: function (url, type) {
-      if (!type) return //document.location.reload()
       switch (type.toLowerCase()) {
         // css files can be reloaded dynamically by replacing the link element
         case "text/css":
@@ -196,7 +192,17 @@
         case "text/javascript":
         case "application/javascript":
         case "application/x-javascript":
-          document.location.reload()
+          if (location.href.includes(".github.io/")) {
+            if (!Live.sentmsg) {
+              console.log("Page Update Available, reload to update")
+              window[window.toast ? "toast" : "alert"](
+                "Page Update Available, reload to update",
+                "yellow",
+                Infinity
+              )
+            }
+            Live.sentmsg = true
+          } else document.location.reload()
       }
     },
 

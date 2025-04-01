@@ -1,3 +1,19 @@
+// ==UserScript==
+// @name         lib:allfuncs
+// @version      20
+// @description  none
+// @run-at       document-start
+// @author       rssaromeo
+// @license      GPLv3
+// @match        *://*/*
+// @include      *
+// @icon         data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAMAAABiM0N1AAAAAXNSR0IB2cksfwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAHJQTFRFAAAAEIijAo2yAI60BYyuF4WaFIifAY6zBI2wB4usGIaZEYigIoiZCIyrE4igG4iYD4mjEomhFoedCoqpDIqnDomlBYyvE4efEYmiDYqlA42xBoytD4mkCYqqGYSUFYidC4qoC4upAo6yCoupDYqmCYur4zowOQAAACZ0Uk5TAO////9vr////1+/D/+/L+/Pf/////+f3///////H4////////+5G91rAAACgUlEQVR4nM2Y22KjIBCGidg1264liZqDadK03X3/V2wNKHMC7MpF/xthHD5mgERAqZhWhfYqH6K+Qf2qNNf625hCoFj9/gblMUi5q5jLkXLCKudgyiRm0FMK82cWJp1fLbV5VmvJbCIc0GCYaFqqlDJgADdBjncqAXYobm1xh72aFMflbysteFfdy2Yi1XGOm5HGBzQ1dq7TzEoxjeNTjQZb7VA3e1c7+ImgasAgQ9+xusNVNZIo5xmOMgihIS2PbCQIiHEUdTvhxCcS/kPomfFI2zHy2PkWmA6aNatIJpKFJyekyy02xh5Y3DI9T4aOT6VhIUrsNTFp1pf79Z4SIIVDegl6IJO6cHiL/GimIZDhgTu/BlYWCQzHMl0zBWT/T3KAhtxOuUB9FtBrpsz0RV4xsjHmW+UCaffcSy/5viMGer0/6HdFNMZBq/vjJL38H9Dqx4Fuy0Em12DbZy+9pGtiDijbglwAehyj11n0tRD3WUBm+lwulE/8h4BuA+iWAQQnteg2Xm63WQLTpnMnpjdge0Mgu/GRPsV4xdjQ94Lfi624fabhDkfUqIKNrM64Q837v8yL0prasepCgrtvw1sJpoqanGEX7b5mQboNW8eawXaWXTMfMGxub472hzWzHSn6Sg2G9+6TAyRruE71s+zAzjWaknoyJCQzwxrghH2k5FDT4eqWunuNxyN9QCGcxVod5oADbYnIUkDTGZEf1xDJnSFteQ3KdsT8zYDMQXcHxsevcLH1TrsABzkNPyA/L7b0jg704viMMlpQI96WsHknCt/3YH0kOEo9zcGkwrFK39ck72rmoehmKqo2RKlilzSy/nJKEV45CT38myJp456fezktHjN5aeMAAAAASUVORK5CYII=
+// @grant        none
+// @namespace https://greasyfork.org/users/1184528
+// @downloadURL https://update.greasyfork.org/scripts/489763/lib%3Aallfuncs.user.js
+// @updateURL https://update.greasyfork.org/scripts/489763/lib%3Aallfuncs.meta.js
+// ==/UserScript==
+
 // fix gettype in test func
 /*
 // @noregex
@@ -94,32 +110,32 @@
          */
         maketype: function maketype(thing, types) {
           // if (types.includes("any")) return true
-          if (gettype(thing, types)) return true
+          if (gt(thing, types)) return thing
           for (var type of types) {
-            if (gettype(thing, "string") && type == "number") {
+            if (gt(thing, "string") && type == "number") {
               thing = Number(thing)
             }
-            if (gettype(thing, "number") && type == "string") {
+            if (gt(thing, "number") && type == "string") {
               thing = String(thing)
             }
-            if (gettype(thing, "string") && type == "number") {
+            if (gt(thing, "string") && type == "number") {
               thing = Number(thing)
             }
-            if (gettype(thing, "number") && type == "string") {
+            if (gt(thing, "number") && type == "string") {
               thing = String(thing)
             }
-            if (gettype(thing, "boolean") && type == 1) {
+            if (gt(thing, "boolean") && type == 1) {
               thing = true
             }
             if (type == "boolean" && (thing == 0 || thing == "")) {
               thing = false
             }
-            if (gettype(thing, type)) return thing
+            if (gt(thing, type)) return thing
           }
           throw new Error(
             `trymaketype: in function ${
               this.funcname
-            } input ${i} is invalid, should be type [${types}] but is instead type ${gettype(
+            } input ${i} is invalid, should be type [${types}] but is instead type ${gt(
               thing
             )}`
           )
@@ -130,14 +146,14 @@
          * @param {string|Array|undefined} match - if set the type to check aganst or array of ytpes to check aganst
          * @returns {boolean|string}
          */
-        trygettype: gettype,
+        trygettype: gt,
         gettype: function gettype(a, s) {
-          if (gettype(a, s)) return true
+          if (gt(a, s)) return true
           throw new Error(
             `gettype: in function ${
               this.funcname
-            } input ${i} is invalid, should be type [${types}] but is instead type ${gettype(
-              thing
+            } input ${i} is invalid, should be type [${s}] but is instead type ${gettype(
+              a
             )}`
           )
         }.bind(retfunc),
@@ -160,7 +176,7 @@
      * @param {string|Array|undefined} match - if set the type to check aganst or array of ytpes to check aganst
      * @returns {boolean|string}
      */
-    function gettype(thing, match) {
+    function gt(thing, match) {
       if (
         !match ||
         (Object.prototype.toString
@@ -210,7 +226,7 @@
       } else {
         if (match.includes("|")) match = match.split("|")
         match = [...new Set(match)]
-        return !!match.find((e) => gettype(thing, e))
+        return !!match.find((e) => gt(thing, e))
       }
     }
   }
@@ -236,9 +252,9 @@
 
   a.wait = newfunc(
     function wait(ms) {
-      return new Promise(function (a) {
+      return new Promise(function (done) {
         var last = Date.now()
-        setTimeout(() => Date.now() - last - ms, ms)
+        setTimeout(() => done(Date.now() - last - ms), ms)
       })
     },
     function ({ ifunset, end, args: [ms], maketype }) {
@@ -256,7 +272,9 @@
           function (q, cb) {
             if (!!q()) {
               clearInterval(int)
-              a.ignore(() => cb(Date.now() - last))
+              try {
+                cb(Date.now() - last)
+              } catch (e) {}
               resolve(Date.now() - last)
             }
           },
@@ -312,58 +330,102 @@
       return end()
     }
   )
-
+  a.foreach = newfunc(
+    function foreach(
+      //none
+      arr, //array|object|any
+      func //function
+    ) {
+      var type = a.gettype(arr)
+      if (type == "array") arr.forEach(func)
+      else if (type == "object") {
+        Reflect.ownKeys(arr).forEach((e, i) => {
+          func(e, arr[e], i)
+        })
+      } else {
+        ;[arr].forEach(func)
+      }
+    },
+    function ({ args: [arr, func], end, maketype }) {
+      func = maketype(func, ["function"])
+      return end()
+    }
+  )
   a.listen = newfunc(
     function listen(elem, type, cb, istrue = false) {
       var all = []
-      if (a.gettype(type, "array")) {
-        var temp = {}
-        a.foreach(type, (e) => (temp[e] = cb))
-        type = temp
+      if (a.gettype(elem, "array")) {
+        return [...elem].map(listen).flat()
+      } else {
+        return listen(elem)
       }
-      if (a.gettype(type, "object")) {
-        istrue = cb
-        a.foreach(type, function (type, cb) {
-          if (a.gettype(type, "string"))
-            type = a.matchall(type, /[a-z]+/g)
+      function listen(elem) {
+        if (a.gettype(type, "array")) {
+          var temp = {}
+          a.foreach(type, (e) => (temp[e] = cb))
+          type = temp
+        }
+        if (a.gettype(type, "object")) {
+          istrue = cb
+          a.foreach(type, function (type, cb) {
+            if (a.gettype(type, "string"))
+              type = a.matchall(type, /[a-z]+/g)
+            type.forEach((type) => {
+              const newcb = function (...e) {
+                cb(...e)
+              }
+              elem.addEventListener(type, newcb, istrue)
+              all.push([elem, type, newcb, istrue])
+            })
+          })
+        } else if (a.gettype(type, "string")) {
+          type = a.matchall(type, /[a-z]+/g)
           type.forEach((type) => {
-            const newcb = function (...e) {
-              cb(...e)
+            const newcb = function (e) {
+              cb(e, type)
             }
             elem.addEventListener(type, newcb, istrue)
-            all.push([elem, type, newcb])
+            all.push([elem, type, newcb, istrue])
           })
-        })
-      } else if (a.gettype(type, "string")) {
-        type = a.matchall(type, /[a-z]+/g)
-        type.forEach((type) => {
-          const newcb = function (e) {
-            cb(e, type)
-          }
-          elem.addEventListener(type, newcb, istrue)
-          all.push([elem, type, newcb])
-        })
+        }
+        return all
       }
-      return all
     },
     function ({
       gettype,
       trygettype,
-      args: [elem, type, cb, istrue],
+      args, //[elem, type, cb, istrue],
       end,
       maketype,
     }) {
-      elem = maketype(elem, ["elem"])
+      var [elem, type, cb, istrue] = args
+      elem = maketype(elem, ["element", "window", "string", "array"])
+      if (trygettype(elem, "string")) {
+        elem = a.qs(elem)
+        elem = maketype(elem, ["element"])
+        args[0] = elem
+      }
       type = maketype(type, ["array", "object", "string"])
       if (trygettype(type, ["array", "any"])) {
         for (var temp in type) gettype(temp, "string")
       } else if (trygettype(type, "object")) {
-        for (var temp in Object.values(type))
+        for (var temp of Object.values(type))
           gettype(temp, "function")
       }
       if (trygettype(type, "object")) cb = maketype(cb, ["undefined"])
       else cb = maketype(cb, ["function"])
       istrue = maketype(istrue, ["boolean", "undefined"])
+      return end()
+    }
+  )
+  a.unlisten = newfunc(
+    function listen(all) {
+      for (var l of all) {
+        l[0].removeEventListener(l[1], l[2], l[3])
+      }
+    },
+    function ({ gettype, trygettype, args: [all], end, maketype }) {
+      all = maketype(all, ["array"])
       return end()
     }
   )
@@ -398,7 +460,7 @@
           return undefined
       }
     },
-    function ({ ifunset, end, args: [elem, single] }) {
+    function ({ ifunset, end, args: [elem, single], maketype }) {
       ifunset([undefined, false])
       elem = maketype(elem, ["element", "string", "array", "object"])
       single = maketype(single, ["boolean"])
@@ -600,17 +662,16 @@
       } else {
         Object.assign(elem, data)
       }
-      if (typeof parent == "string") parent = a.qs(parent)
-      parent?.appendChild?.(elem)
+      if (parent !== null) {
+        if (typeof parent == "string") parent = a.qs(parent)
+        parent.appendChild(elem)
+      }
       return elem
     },
     function ({
       ifunset,
-      gettype,
       end,
       maketype,
-      trymaketype,
-      trygettype,
       args: [parent, elem, data],
     }) {
       ifunset([undefined, undefined, {}])
@@ -741,7 +802,7 @@
         }
       })
     },
-    function ({ ifunset, end, args: [selector] }) {
+    function ({ ifunset, end, args: [selector], maketype }) {
       ifunset([undefined])
       selector = maketype(selector, ["string", "array"])
       return end()
@@ -874,7 +935,7 @@
         return str
       }
     },
-    function ({ ifunset, end, args: [s, includesymbols] }) {
+    function ({ ifunset, end, args: [s, includesymbols], maketype }) {
       ifunset([undefined, false])
       s = maketype(s, ["string"])
       includesymbols = maketype(includesymbols, ["boolean", "string"])
@@ -897,7 +958,7 @@
     function qsa(text, parent = document) {
       return Array.from(parent.querySelectorAll(text))
     },
-    function ({ end, args: [text, parent] }) {
+    function ({ end, args: [text, parent], maketype }) {
       parent = maketype(parent, ["element", "undefined"])
       text = maketype(text, ["string"])
       return end()
@@ -929,7 +990,7 @@
       }
       return path.join(" > ")
     },
-    function ({ end, args: [el] }) {
+    function ({ end, args: [el], maketype }) {
       el = maketype(el, ["element", "array"])
       return end()
     }
@@ -947,7 +1008,7 @@
         ms: Math.floor(ms) % 1000,
       }
     },
-    function ({ ifunset, end, args: [ms] }) {
+    function ({ ifunset, end, args: [ms], maketype }) {
       ifunset([0]) // Default value for ms
       ms = maketype(ms, ["number"]) // Ensure ms is a number
       return end()
@@ -966,7 +1027,7 @@
         ms: Math.floor(ms) % 1000,
       }
     },
-    function ({ ifunset, end, args: [ms] }) {
+    function ({ ifunset, end, args: [ms], maketype }) {
       ifunset([0]) // Default value for ms
       ms = maketype(ms, ["number"]) // Ensure ms is a number
       return end()
@@ -984,8 +1045,8 @@
         h: height,
       }
     },
-    function ({ end, args: [e] }) {
-      e = maketype(e, ["element", "string"]) // Ensure e is an element or string
+    function ({ end, args: [e], maketype }) {
+      e = maketype(e, ["element", "string"])
       return end()
     }
   )
@@ -1025,7 +1086,7 @@
       }
       return elem
     },
-    function ({ ifunset, end, args: [elem, data] }) {
+    function ({ ifunset, end, args: [elem, data], maketype }) {
       ifunset([undefined, {}]) // Default value for data
       elem = maketype(elem, ["element", "string"]) // Ensure elem is an element or string
       data = maketype(data, ["object"]) // Ensure data is an object
@@ -1053,7 +1114,12 @@
         },
       })
     },
-    function ({ ifunset, end, args: [varname, onset, onget, obj] }) {
+    function ({
+      ifunset,
+      end,
+      args: [varname, onset, onget, obj],
+      maketype,
+    }) {
       ifunset([undefined, () => {}, () => {}, window]) // Default values
       varname = maketype(varname, ["string"]) // Ensure varname is a string
       onset = maketype(onset, ["function"]) // Ensure onset is a function
@@ -1100,7 +1166,7 @@
         },
       })
     },
-    function ({ ifunset, end, args: [varname, min, max] }) {
+    function ({ ifunset, end, args: [varname, min, max], maketype }) {
       ifunset([undefined, -Infinity, Infinity]) // Default values for min and max
       varname = maketype(varname, ["string"]) // Ensure varname is a string
       min = maketype(min, ["number"]) // Ensure min is a number
@@ -1174,8 +1240,8 @@
       })
       return data
     },
-    function ({ end, args: [data] }) {
-      data = maketype(data, ["array"]) // Ensure data is an array
+    function ({ end, args: [data], maketype }) {
+      data = maketype(data, ["array"])
       return end()
     }
   )
@@ -1226,7 +1292,7 @@
     function containsany(arr1, arr2) {
       return !!arr2.find((e) => arr1.includes(e))
     },
-    function ({ end, args: [arr1, arr2] }) {
+    function ({ end, args: [arr1, arr2], maketype }) {
       arr1 = maketype(arr1, ["string", "array"])
       arr2 = maketype(arr2, ["string", "array"])
       return end()
@@ -1241,7 +1307,7 @@
             .filter((e) => e)
         : getprops(func)
     },
-    function ({ end, args: [func, peramsonly] }) {
+    function ({ end, args: [func, peramsonly], maketype }) {
       func = maketype(func, ["function"]) // Ensure func is a function
       peramsonly = maketype(peramsonly, ["boolean", "undefined"]) // Ensure peramsonly is a boolean or undefined
       return end()
@@ -1343,6 +1409,7 @@
     function ({
       end,
       args: [func, donecheck, delay, instantstart, waituntildone],
+      maketype,
     }) {
       func = maketype(func, ["function"]) // Ensure func is a function
       donecheck = maketype(donecheck, ["function"]) // Ensure donecheck is a function
@@ -1385,8 +1452,8 @@
       }
       return parsedir(folder)
     },
-    function ({ end, args: [folder] }) {
-      folder = maketype(folder, ["filesystemdirectoryhandle"]) // Ensure folder is a valid filesystem directory handle
+    function ({ end, args: [folder], maketype }) {
+      folder = maketype(folder, ["filesystemdirectoryhandle"])
       return end()
     }
   )
@@ -1455,28 +1522,51 @@
         }
       })
     },
-    function ({ end, args: [oldway, multiple, accept, options] }) {
+    function ({
+      end,
+      args: [oldway, multiple, accept, options],
+      maketype,
+      ifunset,
+    }) {
+      ifunset(undefined, undefined, [], {})
       oldway = maketype(oldway, ["boolean"]) // Ensure oldway is a boolean
       multiple = maketype(multiple, ["boolean"]) // Ensure multiple is a boolean
       accept = maketype(accept, ["array", "string", "undefined"]) // Ensure accept is an array or string
-      options = maketype(options, ["object"]) // Ensure options is an object
+      options = maketype(options, ["object", "undefined"])
       return end()
     }
   )
-  // Test function for getfolderpath and getfiles
-
-  // newfunc(
-  //   async function testGetFunctions() {
-  //     const folderHandle = await showDirectoryPicker() // Assuming the user selects a directory
-  //     const folderContents = await getfolderpath(folderHandle)
-  //     console.log("Folder Contents:", folderContents)
-  //     const files = await getfiles(false, true, [".txt", ".jpg"]) // Example for getting files
-  //     console.log("Selected Files:", files)
-  //   },
-  //   function ({ end }) {
-  //     return end() // No additional validation needed for this test function
-  //   }
-  // )
+  a.getfolder = newfunc(
+    async function getfolder(write = false, options = {}) {
+      const supportsFileSystemAccess =
+        "showDirectoryPicker" in window &&
+        (() => {
+          try {
+            return window.self === window.top
+          } catch {
+            return false
+          }
+        })()
+      if (!supportsFileSystemAccess) throw new Error("no access")
+      try {
+        return await showDirectoryPicker({
+          mode: write ? "readwrite" : "read",
+          ...options,
+        })
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          error(err.name, err.message)
+        }
+      }
+      return undefined
+    },
+    function ({ end, args: [write, options], maketype, ifunset }) {
+      ifunset(false, {})
+      write = maketype(write, ["boolean", "undefined"])
+      options = maketype(options, ["object", "undefined"])
+      return end()
+    }
+  )
 
   a.map = newfunc(
     function map(arr, func) {
@@ -1495,7 +1585,7 @@
         return [arr].map(func)
       }
     },
-    function ({ end, args: [arr, func] }) {
+    function ({ end, args: [arr, func], maketype }) {
       arr = maketype(arr, ["array", "object"]) // Ensure arr is an array or object
       func = maketype(func, ["function"]) // Ensure func is a function
       return end()
@@ -1514,7 +1604,7 @@
         return [arr].find(func)
       }
     },
-    function ({ end, args: [arr, func] }) {
+    function ({ end, args: [arr, func], maketype }) {
       arr = maketype(arr, ["array", "object"]) // Ensure arr is an array or object
       func = maketype(func, ["function"]) // Ensure func is a function
       return end()
@@ -1528,7 +1618,7 @@
         .map(arr, (e, i) => (func(e, i) ? i : undefined))
         .filter((e) => e !== undefined)
     },
-    function ({ end, args: [arr, func] }) {
+    function ({ end, args: [arr, func], maketype }) {
       arr = maketype(arr, ["array", "object"]) // Ensure arr is an array or object
       func = maketype(func, ["function"]) // Ensure func is a function
       return end()
@@ -1553,7 +1643,7 @@
         return [arr].filter(func)
       }
     },
-    function ({ end, args: [arr, func] }) {
+    function ({ end, args: [arr, func], maketype }) {
       arr = maketype(arr, ["array", "object"]) // Ensure arr is an array or object
       func = maketype(func, ["function"]) // Ensure func is a function
       return end()
@@ -1568,27 +1658,6 @@
       return end()
     }
   )
-  // Test function for the new functions
-
-  // newfunc(
-  //   async function testNewFunctions() {
-  //     const testArray = [1, 2, 3, 4, 5]
-  //     const testFunc = (x) => x > 2
-  //     const mapped = await map(testArray, (x) => x * 2)
-  //     console.log("Mapped:", mapped) // [2, 4, 6, 8, 10]
-  //     const found = await find(testArray, testFunc)
-  //     console.log("Found:", found) // 3
-  //     const filteredIdx = await filteridx(testArray, testFunc)
-  //     console.log("Filtered Indices:", filteredIdx) // [2, 3, 4]
-  //     const filtered = await filter(testArray, testFunc)
-  //     console.log("Filtered:", filtered) // [3, 4, 5]
-  //     const uniqueResult = await unique()
-  //     console.log("Unique Result:", uniqueResult) // Depends on the implementation of unique
-  //   },
-  //   function ({ end }) {
-  //     return end() // No additional validation needed for this test function
-  //   }
-  // )
 
   a.tostring = newfunc(
     function tostring(e) {
@@ -1597,29 +1666,11 @@
       if (a.gettype(e, "element")) return a.csspath(e)
       return String(e)
     },
-    function ({ end, args: [e] }) {
+    function ({ end, args: [e], maketype }) {
       e = maketype(e, ["any"]) // Ensure e can be any type
       return end()
     }
   )
-  // Test function for tostring
-
-  // newfunc(
-  //   async function testTostring() {
-  //     const testObject = { key: "value" }
-  //     const testArray = [1, 2, 3]
-  //     const testElement = document.createElement("div")
-  //     testElement.id = "testElement"
-  //     console.log("Object to String:", await tostring(testObject)) // Should log the JSON string of the object
-  //     console.log("Array to String:", await tostring(testArray)) // Should log the JSON string of the array
-  //     console.log("Element to String:", await tostring(testElement)) // Should log the CSS path of the element
-  //     console.log("Number to String:", await tostring(123)) // Should log "123"
-  //     console.log("String to String:", await tostring("Hello")) // Should log "Hello"
-  //   },
-  //   function ({ end }) {
-  //     return end() // No additional validation needed for this test function
-  //   }
-  // )
 
   a.toregex = newfunc(
     function toregex(d, s) {
@@ -1639,7 +1690,7 @@
         temp[1].replaceAll(/(.)(?=.*\1)/g, "")
       )
     },
-    function ({ end, args: [d, s] }) {
+    function ({ end, args: [d, s], maketype }) {
       d = maketype(d, ["string", "array"]) // Ensure d is a string or array
       s = maketype(s, ["string", "undefined"]) // Ensure s is a string or undefined
       return end()
@@ -1653,7 +1704,7 @@
         /^\/.*(?<!\\)\/[gimusy]*$/.test(s) && !/^\/\*.*\*\/$/.test(s)
       )
     },
-    function ({ end, args: [s] }) {
+    function ({ end, args: [s], maketype }) {
       s = maketype(s, ["string"]) // Ensure s is a string
       return end()
     }
@@ -1672,37 +1723,12 @@
       if (temp && !a) e.preventDefault()
       return temp
     },
-    function ({ end, args: [e, code] }) {
+    function ({ end, args: [e, code], maketype }) {
       e = maketype(e, ["object"]) // Ensure e is an event object
       code = maketype(code, ["string"]) // Ensure code is a string
       return end()
     }
   )
-  // Test function for toregex, isregex, and ispressed
-
-  // newfunc(
-  //   async function testRegexFunctions() {
-  //     const regex1 = toregex("abc", "g")
-  //     console.log("Regex 1:", regex1) // Should log the regex for "abc"
-  //     const regex2 = toregex("/abc/i")
-  //     console.log("Regex 2:", regex2) // Should log the regex for "abc" with case insensitive
-  //     console.log("Is regex1 a regex?", isregex(regex1)) // Should log true
-  //     console.log("Is 'abc' a regex?", isregex("abc")) // Should log false
-  //     // Simulating a keypress event for testing ispressed
-  //     const mockEvent = {
-  //       key: "a",
-  //       shiftKey: false,
-  //       altKey: false,
-  //       ctrlKey: false,
-  //       metaKey: false,
-  //     }
-  //     console.log("Is 'a' pressed?", ispressed(mockEvent, "a")) // Should log true
-  //     console.log("Is 'Shift+a' pressed?", ispressed(mockEvent, "Shift+a")) // Should log false
-  //   },
-  //   function ({ end }) {
-  //     return end() // No additional validation needed for this test function
-  //   }
-  // )
 
   a.controller_vibrate = newfunc(
     function controller_vibrate(
@@ -1721,6 +1747,7 @@
     function ({
       end,
       args: [pad, duration, strongMagnitude, weakMagnitude],
+      maketype,
     }) {
       pad = maketype(pad, ["element"]) // Ensure pad is a valid element
       duration = maketype(duration, ["number"]) // Ensure duration is a number
@@ -1736,7 +1763,7 @@
         ? getpad(pad).buttons[button].value
         : getpad(pad).buttons.map((e) => e.value)
     },
-    function ({ end, args: [pad, button] }) {
+    function ({ end, args: [pad, button], maketype }) {
       pad = maketype(pad, ["element"]) // Ensure pad is a valid element
       button = maketype(button, ["number", "undefined"]) // Ensure button is a number or undefined
       return end()
@@ -1747,7 +1774,7 @@
     function controller_getaxes(pad, axes) {
       return axes ? getpad(pad).axes[axes] : getpad(pad).axes
     },
-    function ({ end, args: [pad, axes] }) {
+    function ({ end, args: [pad, axes], maketype }) {
       pad = maketype(pad, ["element"]) // Ensure pad is a valid element
       axes = maketype(axes, ["number", "undefined"]) // Ensure axes is a number or undefined
       return end()
@@ -1760,28 +1787,11 @@
         ? getpad().filter((e) => e).length
         : !!getpad(pad)
     },
-    function ({ end, args: [pad] }) {
+    function ({ end, args: [pad], maketype }) {
       pad = maketype(pad, ["element", "undefined"]) // Ensure pad is a valid element or undefined
       return end()
     }
   )
-  // Test function for the new controller functions
-
-  // newfunc(
-  //   async function testControllerFunctions() {
-  //     const pad = getpad(0) // Assuming you have a way to get the first pad
-  //     console.log("Controller Exists:", await controller_exists(pad)) // Should log true or false
-  //     console.log(
-  //       "Controller Vibrate:",
-  //       await controller_vibrate(pad, 2000, 1, 0.5)
-  //     ) // Should trigger vibration
-  //     console.log("Button Value:", await controller_getbutton(pad, 0)) // Should log the value of the first button
-  //     console.log("Axes Values:", await controller_getaxes(pad)) // Should log the axes values
-  //   },
-  //   function ({ end }) {
-  //     return end() // No additional validation needed for this test function
-  //   }
-  // )
 
   a.readfile = newfunc(
     async function readfile(file, type = "Text") {
@@ -1793,8 +1803,9 @@
         f["readAs" + (type == "json" ? "Text" : type)](file)
       })
     },
-    function ({ end, args: [file, type] }) {
-      type = maketype(type, ["string"]) // Ensure type is a string
+    function ({ end, args: [file, type], maketype, ifunset }) {
+      ifunset(undefined, "Text")
+      type = maketype(type, ["string", "undefined"]) // Ensure type is a string
       return end()
     }
   )
@@ -1806,7 +1817,7 @@
       await f.close()
       return file
     },
-    function ({ end, args: [file, text] }) {
+    function ({ end, args: [file, text], maketype }) {
       text = maketype(text, ["string"]) // Ensure text is a string
       return end()
     }
@@ -1823,31 +1834,11 @@
         (await fileHandle.requestPermission(options)) === "granted"
       )
     },
-    function ({ end, args: [fileHandle, readWrite] }) {
+    function ({ end, args: [fileHandle, readWrite], maketype }) {
       readWrite = maketype(readWrite, ["boolean", "undefined"]) // Ensure readWrite is a boolean or undefined
       return end()
     }
   )
-  // Test function for readfile, writefile, and getfileperms
-
-  // newfunc(
-  //   async function testFileFunctions() {
-  //     const fileHandle = await showOpenFilePicker() // Assuming the user selects a file
-  //     const file = fileHandle[0] // Get the first file handle
-  //     // Test readfile
-  //     const content = await readfile(file, "Text")
-  //     console.log("File Content:", content)
-  //     // Test writefile
-  //     const updatedFile = await writefile(file, "New content")
-  //     console.log("Updated File:", updatedFile)
-  //     // Test getfileperms
-  //     const hasPerms = await getfileperms(fileHandle[0], true)
-  //     console.log("File Permissions Granted:", hasPerms)
-  //   },
-  //   function ({ end }) {
-  //     return end() // No additional validation needed for this test function
-  //   }
-  // )
 
   a.indexeddb_set = newfunc(
     async function indexeddb_set(place, obj) {
@@ -1859,7 +1850,7 @@
         )
       )
     },
-    function ({ end, args: [place, obj] }) {
+    function ({ end, args: [place, obj], maketype }) {
       place = maketype(place, ["object"]) // Ensure place is an object
       obj = maketype(obj, ["object"]) // Ensure obj is an object
       return end()
@@ -1876,7 +1867,7 @@
         )
       )
     },
-    function ({ end, args: [place, obj] }) {
+    function ({ end, args: [place, obj], maketype }) {
       place = maketype(place, ["object"]) // Ensure place is an object
       obj = maketype(obj, ["string"]) // Ensure obj is a string
       return end()
@@ -1892,7 +1883,7 @@
         )
       )
     },
-    function ({ end, args: [place] }) {
+    function ({ end, args: [place], maketype }) {
       place = maketype(place, ["object"]) // Ensure place is an object
       return end()
     }
@@ -1907,7 +1898,7 @@
         )
       )
     },
-    function ({ end, args: [place] }) {
+    function ({ end, args: [place], maketype }) {
       place = maketype(place, ["object"]) // Ensure place is an object
       return end()
     }
@@ -1923,47 +1914,12 @@
         )
       )
     },
-    function ({ end, args: [place, obj] }) {
+    function ({ end, args: [place, obj], maketype }) {
       place = maketype(place, ["object"]) // Ensure place is an object
       obj = maketype(obj, ["string"]) // Ensure obj is a string
       return end()
     }
   )
-  // Test function for the indexeddb functions
-
-  // newfunc(
-  //   async function testIndexedDBFunctions() {
-  //     const dbName = "testDB"
-  //     const storeName = "testStore"
-  //     const request = indexedDB.open(dbName)
-  //     request.onsuccess = async function () {
-  //       const db = request.result
-  //       const transaction = db.transaction(storeName, "readwrite")
-  //       const store = transaction.objectStore(storeName)
-  //       // Test indexeddb_set
-  //       await indexeddb_set(store, { id: 1, name: "Test Item" })
-  //       console.log("Item added")
-  //       // Test indexeddb_get
-  //       const item = await indexeddb_get(store, 1)
-  //       console.log("Retrieved Item:", item)
-  //       // Test indexeddb_getall
-  //       const allItems = await indexeddb_getall(store)
-  //       console.log("All Items:", allItems)
-  //       // Test indexeddb_remove
-  //       await indexeddb_remove(store, 1)
-  //       console.log("Item removed")
-  //       // Test indexeddb_clearall
-  //       await indexeddb_clearall(store)
-  //       console.log("All items cleared")
-  //     }
-  //     request.onerror = function () {
-  //       console.error("Database error:", request.error)
-  //     }
-  //   },
-  //   function ({ end }) {
-  //     return end() // No additional validation needed for this test function
-  //   }
-  // )
 
   a.indexeddb_setup = newfunc(
     async function indexeddb_setup(obj) {
@@ -2779,7 +2735,7 @@
               q.version = t.version
               return q
             },
-            this
+            unsafeWindow
           )
         }
         x = new IDBStore(obj)
@@ -2841,7 +2797,7 @@
       }
       lastidx = idx
     },
-    function ({ end, args: [file, type, cb1, cb2] }) {
+    function ({ end, args: [file, type, cb1, cb2], maketype }) {
       file = maketype(file, ["object"]) // Ensure file is an object
       type = maketype(type, ["string"]) // Ensure type is a string
       cb1 = maketype(cb1, ["function"]) // Ensure cb1 is a function
@@ -2856,7 +2812,7 @@
         func(...args, resolve)
       })
     },
-    function ({ end, args: [func, ...args] }) {
+    function ({ end, args: [func, ...args], maketype }) {
       func = maketype(func, ["function"]) // Ensure func is a function
       return end()
     }
@@ -2867,7 +2823,7 @@
       var cb = args.pop()
       return func(...args).then(cb)
     },
-    function ({ end, args: [func, ...args] }) {
+    function ({ end, args: [func, ...args], maketype }) {
       func = maketype(func, ["function"]) // Ensure func is a function
       return end()
     }
@@ -2931,7 +2887,7 @@
     },
     function ({ end, maketype, args: [num, pre, post, func] }) {
       num = maketype(num, ["number"]) // Ensure num is a number
-      pre = maketype(pre, ["number"]) // Ensure pre is a number
+      pre = maketype(pre, ["number", "undefined"]) // Ensure pre is a number
       post = maketype(post, ["number"]) // Ensure post is a number
       func = maketype(func, ["function", "undefined"]) // Ensure func is a function or undefined
       return end()
@@ -2942,7 +2898,7 @@
     async function fetch(url, type = "text", ...args) {
       return await (await fetch(url, ...args))[type]()
     },
-    function ({ end, maketype, args: [url, type] }) {
+    function ({ end, maketype, args: [url, type], makeenum }) {
       url = maketype(url, ["string"]) // Ensure url is a string
       type = maketype(type, ["string"]) // Ensure type is a string
       type = makeenum(type, ["text", "json"])
@@ -3023,6 +2979,101 @@
       args: [obj],
     }) {
       obj = maketype(obj, ["object"])
+      return end()
+    }
+  )
+  a.clamp = newfunc(
+    function clamp(num, min, max) {
+      if (min !== undefined && num < min) num = min
+      if (max !== undefined && num > max) num = max
+      return num
+    },
+    function ({
+      ifunset,
+      gettype,
+      end,
+      maketype,
+      makeenum,
+      trymaketype,
+      trymakeenum,
+      trygettype,
+      args: [num, min, max],
+    }) {
+      ifunset(undefined, undefined, undefined)
+      num = maketype(num, ["number"])
+      min = maketype(min, ["number", "undefined"])
+      max = maketype(max, ["number", "undefined"])
+      return end()
+    }
+  )
+  a.step = newfunc(
+    function step(num, step) {
+      return Math.round(num / step) * step
+    },
+    function ({
+      ifunset,
+      gettype,
+      end,
+      maketype,
+      makeenum,
+      trymaketype,
+      trymakeenum,
+      trygettype,
+      args: [num, step],
+    }) {
+      num = maketype(num, ["number"])
+      step = maketype(step, ["number"])
+      return end()
+    }
+  )
+  a.download = newfunc(
+    function download(
+      data, //string|file|blob
+      filename = "temp.txt", //string|undefined
+      type = "text/plain", //string|undefined
+      isurl = false //boolean|undefined
+    ) {
+      var url
+      if (isurl) {
+        url = data
+      } else {
+        if (a.gettype(data, "string"))
+          var file = new Blob([data], {
+            type,
+          })
+        else if (a.gettype(data, ["file", "blob"])) {
+          filename = data.name
+          var file = data
+        }
+        url = URL.createObjectURL(file)
+      }
+      var link = document.createElement("a")
+
+      link.href = url
+      link.download = filename
+      a.bodyload().then(() => {
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        if (!isurl) URL.revokeObjectURL(url)
+      })
+    },
+    function ({
+      ifunset,
+      gettype,
+      end,
+      maketype,
+      makeenum,
+      trymaketype,
+      trymakeenum,
+      trygettype,
+      args: [data, filename, type, isurl],
+    }) {
+      ifunset(undefined, "temp.txt", "text/plain", false)
+      data = maketype(data, ["string", "blob", "file"])
+      filename = maketype(filename, ["string", "undefined"])
+      type = maketype(type, ["string", "undefined"])
+      isurl = maketype(isurl, ["boolean", "undefined"])
       return end()
     }
   )
