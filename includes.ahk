@@ -30,7 +30,19 @@ SetWorkingDir(A_ScriptDir)
         <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script>
       )')
       rep(&text, "main", '<link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/main.css" />')
-      f.write(p, text)
+      f.write(p, text.includes('html lang="en"') ? text : "
+      (
+        
+      <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content="main page" />
+  </head>
+)" text "</html>")
     }
     rep(&text, key, val) {
       return text := text.RegExReplace("(?<=<!-- " key " includes start -->)[\s\S]*(?=<!-- " key " includes end -->)", val.RegExReplace(" *`n *(?!\w)", '').RegExReplace(" {2,}", " "))

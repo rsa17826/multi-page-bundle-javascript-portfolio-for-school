@@ -1,0 +1,120 @@
+
+      <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content="main page" />
+  </head><!-- nav includes start --><link rel="icon" type="image/x-icon" href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"/><link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css" /><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script><!-- nav includes end -->
+<input id="cash" value="20" aria-label="cash" />
+<p id="change-due"></p>
+<button id="purchase-btn">a</button>
+<script src="script.js"></script>
+<script>
+  const qs = document.querySelector.bind(document)
+  const qsa = document.querySelectorAll.bind(document)
+  Object.assign(window, console)
+  let price = 19.5
+  let cid = [
+    ["PENNY", 0.01],
+    ["NICKEL", 0],
+    ["DIME", 0],
+    ["QUARTER", 0],
+    ["ONE", 0],
+    ["FIVE", 0],
+    ["TEN", 0],
+    ["TWENTY", 0],
+    ["ONE HUNDRED", 0],
+  ]
+  var cash = 0
+  let register = {
+    // Penny: 1.01,
+    // Nickel: 2.05,
+    // Dime: 3.1,
+    // Quarter: 4.25,
+    // one: 90,
+    // Five: 55,
+    // Ten: 20,
+    // Twenty: 60,
+    // "One Hundred": 100,
+  }
+  const s = {
+    PENNY: 0.01,
+    NICKEL: 0.05,
+    DIME: 0.1,
+    QUARTER: 0.25,
+    ONE: 1,
+    FIVE: 5,
+    TEN: 10,
+    TWENTY: 20,
+    "ONE HUNDRED": 100,
+  }
+
+  function check() {
+    for (var [name, q] of cid) {
+      register[name] = q
+    }
+    var gave = Number(qs("#cash").value)
+    if (gave < price) {
+      alert(
+        "Customer does not have enough money to purchase the item"
+      )
+    }
+    if (gave == price) {
+      qs("#change-due").textContent =
+        "No change due - customer paid with exact cash"
+    } else {
+      var cashret = ""
+      gave -= price
+      for (var [coinname, coinworth] of Object.entries(
+        s
+      ).toReversed()) {
+        var coinsGave = 0
+        log("@@", gave, coinworth, coinname, register, [coinname])
+        while (gave >= coinworth && register[coinname] >= coinworth) {
+          log("!!!!!!", coinname, gave, coinsGave)
+          gave -= coinworth
+          register[coinname] -= coinworth
+          register[coinname] =
+            Math.round(register[coinname] * 100) / 100
+
+          gave = Math.round(gave * 100) / 100
+          coinsGave++
+        }
+        if (coinsGave) {
+          cashret += ` ${coinname.toUpperCase()}: $${
+            coinsGave * s[coinname]
+          }`
+          log(cashret)
+        }
+      }
+      log(gave, register)
+      if (gave) {
+        qs("#change-due").textContent = "Status: INSUFFICIENT_FUNDS"
+        // return
+      } else {
+        status = "CLOSED"
+        for (var [_, temp] of Object.entries(register)) {
+          warn("TEMP#", temp, _)
+          if (temp) {
+            status = "OPEN"
+            break
+          }
+        }
+        warn(status)
+        qs("#change-due").textContent = `Status: ${status} `
+        qs("#change-due").textContent += cashret
+      }
+      qs("#change-due").textContent = qs(
+        "#change-due"
+      ).textContent.replace(/ +/g, " ")
+
+      // qs("#change-due").textContent =
+      //   "Status: OPEN TWENTY: $60 TEN: $20 FIVE: $15 ONE: $1 QUARTER: $0.5 DIME: $0.2 PENNY: $0.04"
+    }
+  }
+  qs("#purchase-btn").onclick = check
+</script>
+</html>

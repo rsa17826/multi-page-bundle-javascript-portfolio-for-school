@@ -1,382 +1,406 @@
-<style>
-  button,
-  input,
-  select {
-    height: 20px;
-    color: #222;
-    background-color: #777;
-  }
-  html {
-    color-scheme: dark;
-  }
-  body {
-    background-color: #999;
-  }
-  * {
-    color: #000;
-  }
-  table tr:not(:first-child):hover {
-    background-color: #777;
-  }
-  table tr.notfound:not(:first-child):hover {
-    background-color: #922;
-  }
-  tr.notfound {
-    background-color: #700;
-  }
-</style>
-<title>file/folder opener</title>
-<button id="loadfile">load file</button>
-<button id="loadfolder">load folder</button>
-<table border="1" id="main">
-  <tr>
-    <th>name</th>
-    <th>open</th>
-    <th>prevent closing</th>
-    <th>remove</th>
-    <th>auto reload file on focus</th>
-    <!-- <th>auto close file on focus loss</th> -->
-    <th>save as standalone</th>
-    <th>file to open</th>
-  </tr>
-</table>
-<script>
-  Object.assign(window, console)
-  //   window.onerror=alert
-</script>
-<!-- <script src="eruda.error.js"></script> -->
-<script type="text/javascript" src="./libloader.js"></script>
-<script type="text/javascript" src="./allfuncs.lib.js"></script>
-<script type="text/javascript" src="./indexeddbls.lib.js"></script>
-<script type="text/javascript" src="./ffopener.lib.js"></script>
-<script type="text/javascript" src="./eruda.js"></script>
-<script>
-  const run = loadlib("file opener", "index.html")
-  const { newglobaljs } = run
-  newglobaljs("eruda.js")
-  newglobaljs("libloader.js")
-  newglobaljs("allfuncs.lib.js")
-  newglobaljs("newelem.lib.js")
-  newglobaljs("ffopener.lib.js")
-  newglobaljs("strict.lib.js")
-  newglobaljs("indexeddbls.lib.js")
-  newglobaljs("cache.lib.js")
-  newglobaljs("range.lib.js")
-  newglobaljs("toast.lib.js")
-  newglobaljs("progress.lib.js")
-  newglobaljs("condencearraybynumber.lib.js")
-  newglobaljs("protectedtextapi.lib.js")
-  newglobaljs("protectedtextlevelsaver.lib.js")
-  newglobaljs("menu.lib.js")
-  newglobaljs("lzstring.lib.js")
-  newglobaljs(
-    "eruda.js",
-    (e) => e + '\nconsole.error("")',
-    "eruda.error.js"
-  )
-  const a = loadlib("allfuncs", "index.html")
-  const setupls = loadlib("indexeddb ls", "index.html")
-  ;(async () => {
-    window.ls = await setupls(
-      location.href.match(/:\/\/([^\/]+)\//)[1]
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content="main page" /></head
+  ><style>
+    button,
+    input,
+    select {
+      height: 20px;
+      color: #222;
+      background-color: #777;
+    }
+    html {
+      color-scheme: dark;
+    }
+    body {
+      background-color: #999;
+    }
+    * {
+      color: #000;
+    }
+    table tr:not(:first-child):hover {
+      background-color: #777;
+    }
+    table tr.notfound:not(:first-child):hover {
+      background-color: #922;
+    }
+    tr.notfound {
+      background-color: #700;
+    }
+  </style>
+  <title>file/folder opener</title>
+  <button id="loadfile">load file</button>
+  <button id="loadfolder">load folder</button>
+  <table border="1" id="main">
+    <tr>
+      <th>name</th>
+      <th>open</th>
+      <th>prevent closing</th>
+      <th>remove</th>
+      <th>auto reload file on focus</th>
+      <!-- <th>auto close file on focus loss</th> -->
+      <th>save as standalone</th>
+      <th>file to open</th>
+    </tr>
+  </table>
+  <script>
+    Object.assign(window, console)
+    //   window.onerror=alert
+  </script>
+  <!-- <script src="eruda.error.js"></script> -->
+  <script type="text/javascript" src="./libloader.js"></script>
+  <script type="text/javascript" src="./allfuncs.lib.js"></script>
+  <script type="text/javascript" src="./indexeddbls.lib.js"></script>
+  <script type="text/javascript" src="./ffopener.lib.js"></script>
+  <script type="text/javascript" src="./eruda.js"></script>
+  <script>
+    const run = loadlib("file opener", "index.html")
+    const { newglobaljs } = run
+    newglobaljs("eruda.js")
+    newglobaljs("libloader.js")
+    newglobaljs("allfuncs.lib.js")
+    newglobaljs("newelem.lib.js")
+    newglobaljs("ffopener.lib.js")
+    newglobaljs("strict.lib.js")
+    newglobaljs("indexeddbls.lib.js")
+    newglobaljs("cache.lib.js")
+    newglobaljs("range.lib.js")
+    newglobaljs("toast.lib.js")
+    newglobaljs("progress.lib.js")
+    newglobaljs("condencearraybynumber.lib.js")
+    newglobaljs("protectedtextapi.lib.js")
+    newglobaljs("protectedtextlevelsaver.lib.js")
+    newglobaljs("menu.lib.js")
+    newglobaljs("lzstring.lib.js")
+    newglobaljs(
+      "eruda.js",
+      (e) => e + '\nconsole.error("")',
+      "eruda.error.js"
     )
-    a([...ls]).foreach(({ id, val }) => {
-      newlink(id, val)
-    })
-    function newlink(name, file) {
-      var isfolder = a(file).gettype("filesystemdirectoryhandle").val
-      const row = a("#main").createelem("tr", {})
-      const main = row.createelem.same("td", {
-        innerHTML: name,
+    const a = loadlib("allfuncs", "index.html")
+    const setupls = loadlib("indexeddb ls", "index.html")
+    ;(async () => {
+      window.ls = await setupls(
+        location.href.match(/:\/\/([^\/]+)\//)[1]
+      )
+      a([...ls]).foreach(({ id, val }) => {
+        newlink(id, val)
       })
-      var filename
-      main.createelem("td", {}).createelem("button", {
-        innerHTML: "open",
-        async onclick(e) {
-          await getperms(file)
-          var win
-          if (isfolder) {
-            win = run.folder(file, filename)
-          } else {
-            win = run.file(file)
-          }
-          win = await win
-        },
-      })
-      main.createelem("td", {}).createelem("button", {
-        innerHTML: "open and block closing",
-        async onclick(e) {
-          await getperms(file)
-          var win
-          if (isfolder) {
-            win = run.folder(file, filename)
-          } else {
-            win = run.file(file)
-          }
-          win = await win
-          win.onload = function () {
-            win.onbeforeunload = function () {
-              return "asd"
-            }
-          }
-        },
-      })
-      main.createelem("td", {}).createelem("button", {
-        paddingLeft: "5px",
-        innerHTML: "remove",
-        onclick(e) {
-          main.val.remove()
-          delete ls[name]
-        },
-      })
-      main.createelem("td", {}).createelem("button", {
-        paddingLeft: "5px",
-        innerHTML: "auto reload",
-        onclick(e) {
-          window.onfocus = async () => {
+      function newlink(name, file) {
+        var isfolder = a(file).gettype(
+          "filesystemdirectoryhandle"
+        ).val
+        const row = a("#main").createelem("tr", {})
+        const main = row.createelem.same("td", {
+          innerHTML: name,
+        })
+        var filename
+        main.createelem("td", {}).createelem("button", {
+          innerHTML: "open",
+          async onclick(e) {
             await getperms(file)
+            var win
             if (isfolder) {
-              run.folder(file, filename)
+              win = run.folder(file, filename)
             } else {
-              run.file(file)
+              win = run.file(file)
             }
-          }
-          window.onfocus()
-        },
-      })
-      // main.createelem("td", {}).createelem("button", {
-      //   paddingLeft: "5px",
-      //   innerHTML: "auto close",
-      //   onclick(e) {
-      //     window.onfocus = async () => {
-      //       await getperms(file)
-      //       if (isfolder) {
-      //         run.folder(file, filename)
-      //       } else {
-      //         run.file(file)
-      //       }
-      //     }
-      //     window.onfocus()
-      //   },
-      // })
-
-      main.createelem("td", {}).createelem("button", {
-        paddingLeft: "5px",
-        innerHTML: "save to folder",
-        async onclick(e) {
-          await getperms(file)
-          var main = await showDirectoryPicker(true)
-          main = await newdir(main, name)
-          // var temp = []
-          // var haderror = false
-          // while (true) {
-          //   await test(main)
-          //   if (!haderror) break
-          // }
-          // await a(5000).wait()
-          // async function test(main) {
-          //   for await (const e of main.values()) {
-          //     try {
-          //       await main.removeEntry(e.name)
-          //     } catch (e) {
-          //       haderror = true
-          //     }
-          //     if (e.kind !== "file") {
-          //       haderror = true
-          //       return await test(e)
-          //     }
-          //   }
-          // }
-          var inmain = (await getfilesfromfolder(main)).sort(
-            (e, ee) =>
-              ee.path.split("/").length - e.path.split("/").length
-          )
-          for (var { handle, path, directoryHandle } of inmain) {
-            await handle.remove()
-            if (directoryHandle !== main) {
-              warn("removing", directoryHandle.name)
-              try {
-                await main.removeEntry(directoryHandle.name)
-                log("sucess, removed", directoryHandle.name)
-              } catch (e) {
-                error("failed to remove", e, directoryHandle.name)
+            win = await win
+          },
+        })
+        main.createelem("td", {}).createelem("button", {
+          innerHTML: "open and block closing",
+          async onclick(e) {
+            await getperms(file)
+            var win
+            if (isfolder) {
+              win = run.folder(file, filename)
+            } else {
+              win = run.file(file)
+            }
+            win = await win
+            win.onload = function () {
+              win.onbeforeunload = function () {
+                return "asd"
               }
             }
-          }
-          if (file.kind == "file") {
-            newfile(
-              main,
-              file.name,
-              await a(await file.getFile()).readfile()
+          },
+        })
+        main.createelem("td", {}).createelem("button", {
+          paddingLeft: "5px",
+          innerHTML: "remove",
+          onclick(e) {
+            main.val.remove()
+            delete ls[name]
+          },
+        })
+        main.createelem("td", {}).createelem("button", {
+          paddingLeft: "5px",
+          innerHTML: "auto reload",
+          onclick(e) {
+            window.onfocus = async () => {
+              await getperms(file)
+              if (isfolder) {
+                run.folder(file, filename)
+              } else {
+                run.file(file)
+              }
+            }
+            window.onfocus()
+          },
+        })
+        // main.createelem("td", {}).createelem("button", {
+        //   paddingLeft: "5px",
+        //   innerHTML: "auto close",
+        //   onclick(e) {
+        //     window.onfocus = async () => {
+        //       await getperms(file)
+        //       if (isfolder) {
+        //         run.folder(file, filename)
+        //       } else {
+        //         run.file(file)
+        //       }
+        //     }
+        //     window.onfocus()
+        //   },
+        // })
+
+        main.createelem("td", {}).createelem("button", {
+          paddingLeft: "5px",
+          innerHTML: "save to folder",
+          async onclick(e) {
+            await getperms(file)
+            var main = await showDirectoryPicker(true)
+            main = await newdir(main, name)
+            // var temp = []
+            // var haderror = false
+            // while (true) {
+            //   await test(main)
+            //   if (!haderror) break
+            // }
+            // await a(5000).wait()
+            // async function test(main) {
+            //   for await (const e of main.values()) {
+            //     try {
+            //       await main.removeEntry(e.name)
+            //     } catch (e) {
+            //       haderror = true
+            //     }
+            //     if (e.kind !== "file") {
+            //       haderror = true
+            //       return await test(e)
+            //     }
+            //   }
+            // }
+            var inmain = (await getfilesfromfolder(main)).sort(
+              (e, ee) =>
+                ee.path.split("/").length - e.path.split("/").length
             )
-          } else {
-            for (var f of await getfilesfromfolder(file)) {
-              var path = f.path.split("/")
-              path.shift()
-              var filename = path.pop()
-              var thisdir = main
-              for (var dir of path) {
-                thisdir = await newdir(thisdir, dir)
+            for (var { handle, path, directoryHandle } of inmain) {
+              await handle.remove()
+              if (directoryHandle !== main) {
+                warn("removing", directoryHandle.name)
+                try {
+                  await main.removeEntry(directoryHandle.name)
+                  log("sucess, removed", directoryHandle.name)
+                } catch (e) {
+                  error("failed to remove", e, directoryHandle.name)
+                }
               }
-              newfile(thisdir, filename, f)
             }
-          }
-          run.globals.forEach((e) => {
-            newfile(main, e.name, e.text)
-          })
-          function newdir(parent, name) {
-            return parent.getDirectoryHandle(name, { create: true })
-          }
-          async function newfile(parent, name, content) {
-            var file = await parent.getFileHandle(name, {
-              create: true,
-            })
-            if (content) {
-              var temp = await file.createWritable()
-              await temp.write({ type: "write", data: content })
-              await temp.close()
-            }
-            return file
-          }
-          log("done")
-          // async function getall(dir){
-
-          // }
-          async function getfilesfromfolder(
-            dirHandle,
-            path = dirHandle.name
-          ) {
-            const dirs = []
-            const files = []
-            //     warn(path)
-            for await (const entry of dirHandle.values()) {
-              const nestedPath = `${path}/${entry.name}`
-              if (
-                nestedPath.startsWith(
-                  dirHandle.name + "/codemirror/mode/ja"
-                )
+            if (file.kind == "file") {
+              newfile(
+                main,
+                file.name,
+                await a(await file.getFile()).readfile()
               )
-                error(nestedPath, entry)
-              if (entry.kind === "file") {
-                files.push(
-                  entry.getFile().then((file) => {
-                    file.directoryHandle = dirHandle
-                    file.handle = entry
-                    Object.defineProperty(file, "path", {
-                      configurable: true,
-                      enumerable: true,
-                      get: () => nestedPath,
-                    })
-                    return Object.defineProperty(
-                      file,
-                      "webkitRelativePath",
-                      {
+            } else {
+              for (var f of await getfilesfromfolder(file)) {
+                var path = f.path.split("/")
+                path.shift()
+                var filename = path.pop()
+                var thisdir = main
+                for (var dir of path) {
+                  thisdir = await newdir(thisdir, dir)
+                }
+                newfile(thisdir, filename, f)
+              }
+            }
+            run.globals.forEach((e) => {
+              newfile(main, e.name, e.text)
+            })
+            function newdir(parent, name) {
+              return parent.getDirectoryHandle(name, { create: true })
+            }
+            async function newfile(parent, name, content) {
+              var file = await parent.getFileHandle(name, {
+                create: true,
+              })
+              if (content) {
+                var temp = await file.createWritable()
+                await temp.write({ type: "write", data: content })
+                await temp.close()
+              }
+              return file
+            }
+            log("done")
+            // async function getall(dir){
+
+            // }
+            async function getfilesfromfolder(
+              dirHandle,
+              path = dirHandle.name
+            ) {
+              const dirs = []
+              const files = []
+              //     warn(path)
+              for await (const entry of dirHandle.values()) {
+                const nestedPath = `${path}/${entry.name}`
+                if (
+                  nestedPath.startsWith(
+                    dirHandle.name + "/codemirror/mode/ja"
+                  )
+                )
+                  error(nestedPath, entry)
+                if (entry.kind === "file") {
+                  files.push(
+                    entry.getFile().then((file) => {
+                      file.directoryHandle = dirHandle
+                      file.handle = entry
+                      Object.defineProperty(file, "path", {
                         configurable: true,
                         enumerable: true,
                         get: () => nestedPath,
-                      }
-                    )
-                  })
-                )
-              } else if (entry.kind === "directory") {
-                dirs.push(getfilesfromfolder(entry, nestedPath))
-              } else {
-                error(entry.kind)
-              }
-            }
-            return [
-              ...(await Promise.all(dirs)).flat(),
-              ...(await Promise.all(files)),
-            ]
-          }
-        },
-      })
-      ;(async () => {
-        var options = []
-        if (isfolder) {
-          var hides = []
-          try {
-            for await (const tempfilename of file.keys()) {
-              const [_, name, ext] = tempfilename.match(
-                /^(.*)\.([^.]*)$/
-              ) || [null, tempfilename, ""]
-              if (ext == "html")
-                options.push(name.replace(/\.(html)$/, ""))
-              if (ext == "main") {
-                filename = name
-              }
-              if (ext == "hide") {
-                hides.push(name)
-              }
-            }
-          } catch (e) {
-            row.val.classList.add("notfound")
-            // main.createelem("td", {})
-          }
-          options = options.filter((e) => !hides.includes(e))
-          if (options.length < 2) return main.createelem("td", {}).val
-          options.reverse()
-          if (!filename) filename = "index"
-          var select = main
-            .createelem("td", {})
-            .createelem("select", {
-              paddingLeft: "5px",
-              options,
-              width: "fit-content",
-              minWidth: "100%",
-              onchange(e) {
-                filename = this.value + ".html"
-                if (false) {
-                  run.folder(file, this.value)
+                      })
+                      return Object.defineProperty(
+                        file,
+                        "webkitRelativePath",
+                        {
+                          configurable: true,
+                          enumerable: true,
+                          get: () => nestedPath,
+                        }
+                      )
+                    })
+                  )
+                } else if (entry.kind === "directory") {
+                  dirs.push(getfilesfromfolder(entry, nestedPath))
+                } else {
+                  error(entry.kind)
                 }
-              },
-            }).val
-          select.value = filename
-          filename += ".html"
-        } else {
-          // await getperms(file)
-          file.getFile().catch((e) => {
-            // alert(e)
-            row.val.classList.add("notfound")
-          })
-          main.createelem("td", {})
-        }
-        // main.createelem.same("br", {}).val
-      })()
-    }
-    a("#loadfolder").listen("click", async (e) => {
-      var file = await showDirectoryPicker({
-        mode: "read",
-      })
-      ls[file.name] = file
-      newlink(file.name, file)
-    })
-    a("#loadfile").listen("click", async (e) => {
-      var file = await showOpenFilePicker({
-        mode: "read",
-      })
-      ls[file.name] = file
-      newlink(file.name, file)
-    })
-  })()
-
-  async function getperms(fileHandle, write) {
-    try {
-      if (
-        (await fileHandle.queryPermission(
-          write ? { mode: "readwrite" } : {}
-        )) === "granted" ||
-        (await fileHandle.requestPermission(
-          write ? { mode: "readwrite" } : {}
-        )) === "granted"
-      ) {
-        return true
+              }
+              return [
+                ...(await Promise.all(dirs)).flat(),
+                ...(await Promise.all(files)),
+              ]
+            }
+          },
+        })
+        ;(async () => {
+          var options = []
+          if (isfolder) {
+            var hides = []
+            try {
+              for await (const tempfilename of file.keys()) {
+                const [_, name, ext] = tempfilename.match(
+                  /^(.*)\.([^.]*)$/
+                ) || [null, tempfilename, ""]
+                if (ext == "html")
+                  options.push(name.replace(/\.(html)$/, ""))
+                if (ext == "main") {
+                  filename = name
+                }
+                if (ext == "hide") {
+                  hides.push(name)
+                }
+              }
+            } catch (e) {
+              row.val.classList.add("notfound")
+              // main.createelem("td", {})
+            }
+            options = options.filter((e) => !hides.includes(e))
+            if (options.length < 2)
+              return main.createelem("td", {}).val
+            options.reverse()
+            if (!filename) filename = "index"
+            var select = main
+              .createelem("td", {})
+              .createelem("select", {
+                paddingLeft: "5px",
+                options,
+                width: "fit-content",
+                minWidth: "100%",
+                onchange(e) {
+                  filename = this.value + ".html"
+                  if (false) {
+                    run.folder(file, this.value)
+                  }
+                },
+              }).val
+            select.value = filename
+            filename += ".html"
+          } else {
+            // await getperms(file)
+            file.getFile().catch((e) => {
+              // alert(e)
+              row.val.classList.add("notfound")
+            })
+            main.createelem("td", {})
+          }
+          // main.createelem.same("br", {}).val
+        })()
       }
-      return false
-    } catch (e) {
-      return false
-    }
-  }
-</script>
+      a("#loadfolder").listen("click", async (e) => {
+        var file = await showDirectoryPicker({
+          mode: "read",
+        })
+        ls[file.name] = file
+        newlink(file.name, file)
+      })
+      a("#loadfile").listen("click", async (e) => {
+        var file = await showOpenFilePicker({
+          mode: "read",
+        })
+        ls[file.name] = file
+        newlink(file.name, file)
+      })
+    })()
 
-<!-- nav includes start --><link rel="icon" type="image/x-icon" href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"/><link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css" /><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script><!-- nav includes end -->
+    async function getperms(fileHandle, write) {
+      try {
+        if (
+          (await fileHandle.queryPermission(
+            write ? { mode: "readwrite" } : {}
+          )) === "granted" ||
+          (await fileHandle.requestPermission(
+            write ? { mode: "readwrite" } : {}
+          )) === "granted"
+        ) {
+          return true
+        }
+        return false
+      } catch (e) {
+        return false
+      }
+    }
+  </script>
+
+  <!-- nav includes start --><link
+    rel="icon"
+    type="image/x-icon"
+    href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"
+  /><link
+    rel="stylesheet"
+    href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css"
+  />
+  <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script>
+  <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script>
+  <script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script>
+  <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script>
+  <!-- nav includes end -->
+</html>

@@ -1,138 +1,165 @@
 <!DOCTYPE html>
-<title>Home</title>
-<!-- nav includes start --><link
-  rel="icon"
-  type="image/x-icon"
-  href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"
-/><link
-  rel="stylesheet"
-  href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css"
-/>
-<script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script>
-<script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script>
-<script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script>
-<script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script>
-<!-- nav includes end -->
-<!-- main includes start --><link
-  rel="stylesheet"
-  href="/multi-page-bundle-javascript-portfolio-for-school/styles/main.css"
-/><!-- main includes end -->
-<style>
-  #feature {
-    display: flex;
-    /* border: 10px solid var(--main-darkish); */
-    box-shadow: 0 0 30px var(--main-darkish);
-    border-radius: 10px;
-    position: relative;
-    top: 20px;
-    margin: 20px;
-    margin-bottom: 40px;
-    padding: 5px;
-    width: fit-content;
-    max-width: 600px;
-  }
-  #feature > iframe {
-    display: flex;
-    /* border: 10px solid var(--main-darkish); */
-    border-radius: 10px;
-    margin-right: 15px;
-    padding: 5px;
-    width: 300px !important;
-    height: 150px !important;
-  }
-</style>
-<div id="feature">
-  <iframe src="" frameborder="0"></iframe>
-  <div id="info"></div>
-</div>
-<div style="display: flex; flex-direction: column; gap: 8px">
-  <div>
-    <a
-      href="/multi-page-bundle-javascript-portfolio-for-school/ffopen/"
-      >ffopen</a
-    >
-    <p>
-      can open files and folders as html files, this allows your html
-      pages to be able to fetch other things in the same folder, which
-      cannot be done with file urls
-    </p>
-  </div>
-  <div>
-    <a
-      href="/multi-page-bundle-javascript-portfolio-for-school/vid1 site clone/"
-      >vid1 site clone</a
-    >
-    <p>
-      this is just a clone of the first site i saw appear in the first
-      video
-    </p>
-    <p>
-      added because of: As one of your three pages, put your feature
-      from Final Project Step: Publish a Static Website and name the
-      path appropriately based on what the feature is
-    </p>
-  </div>
-  <div>
-    <a
-      href="/multi-page-bundle-javascript-portfolio-for-school/bg color changer/"
-      >bg color changer</a
-    >
-    <p>
-      this just changes the bodys bg color when the button is pressed
-    </p>
-    <p>
-      added because of: Pull in your solution to the Background Color
-      Changer (see FCC, JS, DSA, Block 1, Mini Courses 3 & 4) as a
-      page and name the path appropriately based on what the
-      feature/widget is
-    </p>
-  </div>
-  <div>
-    <a
-      href="/multi-page-bundle-javascript-portfolio-for-school/Palindrome Checker Project/"
-      >Palindrome Checker Project</a
-    >
-    <p>this detects palindromes</p>
-  </div>
-  <div>
-    <a
-      href="/multi-page-bundle-javascript-portfolio-for-school/Build a Roman Numeral Converter Project/"
-      >Build a Roman Numeral Converter Project</a
-    >
-    <p>
-      this converts from int to roman numerals for numbers between 0
-      and 4000
-    </p>
-  </div>
-  <div>
-    <a
-      href="/multi-page-bundle-javascript-portfolio-for-school/Build a Telephone Number Validator Project/"
-      >Build a Telephone Number Validator Project</a
-    >
-    <p>this tells if the number is valid, for us numbers, or not.</p>
-  </div>
-  <div>
-    <a
-      href="/multi-page-bundle-javascript-portfolio-for-school/custom start page/"
-      >custom start page</a
-    >
-    <p>this allows the user to create a custom start page.</p>
-  </div>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content="main page" />
+  </head>
+  <title>Home</title>
+  <!-- nav includes start --><link
+    rel="icon"
+    type="image/x-icon"
+    href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"
+  /><link
+    rel="stylesheet"
+    href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css"
+  />
   <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script>
   <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script>
-  <script>
-    const a = loadlib("allfuncs")
-    feature("custom start page")
-    function feature(page) {
-      var page = a
-        .qsa("a")
-        .find(
-          (e) =>
-            e.innerHTML.trim().toLowerCase() ==
-            page.trim().toLowerCase()
-        )
-      a.qs("#feature>#info").innerHTML = page.parentElement.outerHTML
-      a.qs("#feature>iframe").src = page.href + "#nonav"
+  <script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script>
+  <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script>
+  <!-- nav includes end -->
+  <!-- main includes start --><link
+    rel="stylesheet"
+    href="/multi-page-bundle-javascript-portfolio-for-school/styles/main.css"
+  /><!-- main includes end -->
+  <style>
+    #feature {
+      display: flex;
+      /* border: 10px solid var(--main-darkish); */
+      box-shadow: 0 0 30px var(--main-darkish);
+      border-radius: 10px;
+      position: relative;
+      top: 20px;
+      margin: 20px;
+      margin-bottom: 40px;
+      padding: 5px;
+      width: fit-content;
+      max-width: 600px;
     }
-  </script>
-</div>
+    #feature > iframe {
+      display: flex;
+      /* border: 10px solid var(--main-darkish); */
+      border-radius: 10px;
+      margin-right: 15px;
+      padding: 5px;
+      width: 300px !important;
+      height: 150px !important;
+    }
+  </style>
+  <div id="feature">
+    <iframe src="" frameborder="0" title="featured"></iframe>
+    <div id="info"></div>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/ffopen/"
+        >ffopen</a
+      >
+      <p>
+        can open files and folders as html files, this allows your
+        html pages to be able to fetch other things in the same
+        folder, which cannot be done with file urls
+      </p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/vid1 site clone/"
+        >vid1 site clone</a
+      >
+      <p>
+        this is just a clone of the first site i saw appear in the
+        first video
+      </p>
+      <p>
+        added because of: As one of your three pages, put your feature
+        from Final Project Step: Publish a Static Website and name the
+        path appropriately based on what the feature is
+      </p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/bg color changer/"
+        >bg color changer</a
+      >
+      <p>
+        this just changes the bodys bg color when the button is
+        pressed
+      </p>
+      <p>
+        added because of: Pull in your solution to the Background
+        Color Changer (see FCC, JS, DSA, Block 1, Mini Courses 3 & 4)
+        as a page and name the path appropriately based on what the
+        feature/widget is
+      </p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/Palindrome Checker Project/"
+        >Palindrome Checker Project</a
+      >
+      <p>this detects palindromes</p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/Build a Roman Numeral Converter Project/"
+        >Build a Roman Numeral Converter Project</a
+      >
+      <p>
+        this converts from int to roman numerals for numbers between 0
+        and 4000
+      </p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/Build a Telephone Number Validator Project/"
+        >Build a Telephone Number Validator Project</a
+      >
+      <p>
+        this tells if the number is valid, for us numbers, or not.
+      </p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/custom start page/"
+        >custom start page</a
+      >
+      <p>this allows the user to create a custom start page.</p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/Build a Cash Register Project/"
+        >Build a Cash Register Project</a
+      >
+      <p>this allows the user to create a custom start page.</p>
+    </div>
+    <div>
+      <a
+        href="/multi-page-bundle-javascript-portfolio-for-school/Build a Pok&eacute;mon Search App Project/"
+        >Build a Pok&eacute;mon Search App Project</a
+      >
+      <p>this allows the user to create a custom start page.</p>
+    </div>
+    <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script>
+    <script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script>
+    <script>
+      const a = loadlib("allfuncs")
+      feature("custom start page")
+      function feature(page) {
+        var page = a
+          .qsa("a")
+          .find(
+            (e) =>
+              e.innerHTML.trim().toLowerCase() ==
+              page.trim().toLowerCase()
+          )
+        a.qs("#feature>#info").innerHTML =
+          page.parentElement.outerHTML
+        a.qs("#feature>iframe").src = page.href + "#nonav"
+      }
+    </script>
+  </div>
+</html>

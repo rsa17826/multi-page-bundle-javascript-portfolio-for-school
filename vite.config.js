@@ -14,6 +14,8 @@ export default defineConfig({
     outDir: "docs",
     rollupOptions: {
       input: [
+        "./Build a Cash Register Project/index.html",
+        "./Build a Pokémon Search App Project/index.html",
         "./js globals/libloader.user.js",
         "./js globals/allfuncs.user.js",
         "./js globals/progress bar.user.js",

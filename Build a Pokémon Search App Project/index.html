@@ -1,0 +1,70 @@
+
+      <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta name="description" content="main page" />
+  </head><!-- nav includes start --><link rel="icon" type="image/x-icon" href="/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png"/><link rel="stylesheet" href="/multi-page-bundle-javascript-portfolio-for-school/styles/root.css" /><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/libloader.user.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/allfuncs.user.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/nav/nav.js"></script><script src="/multi-page-bundle-javascript-portfolio-for-school/js globals/live.js"></script><!-- nav includes end -->
+<input id="search-input" />
+<button id="search-button">asdasds</button>
+<p id="pokemon-name"></p>
+<p id="pokemon-id"></p>
+<p id="weight"></p>
+<p id="height"></p>
+<p id="types"></p>
+<p id="hp"></p>
+<p id="attack"></p>
+<p id="defense"></p>
+<p id="special-attack"></p>
+<p id="special-defense"></p>
+<p id="speed"></p>
+<p id="sprite"></p>
+<script>
+  ;(async () => {
+    // const data = await (
+    //   await fetch(
+    //     `https://pokeapi-proxy.freecodecamp.rocks/api/pokemon/${pokemonNameOrId}`
+    //   )
+    // ).json()
+    const qs = document.querySelector.bind(document)
+    const qsa = document.querySelectorAll.bind(document)
+    qs("#search-input").required = true
+    Object.assign(window, console)
+    qs("#search-button").onclick = async () => {
+      var inp = qs("#search-input").value.toLowerCase()
+      if (inp === "") {
+        return
+      }
+      try {
+        const data = await (
+          await fetch(
+            `https://pokeapi-proxy.freecodecamp.rocks/api/pokemon/${inp}`
+          )
+        ).json()
+        qs("#pokemon-name").textContent = data.name
+        qs("#pokemon-id").textContent = "#" + data.id
+        qs("#weight").textContent = "Weight: " + data.weight
+        qs("#height").textContent = "Height: " + data.height
+        qs("#types").innerHTML = data.types
+          .map((e) => "<a>" + e.type.name + "</a>")
+          .join("")
+        qs("#hp").textContent = data["stats"][0]["base_stat"]
+        qs("#attack").textContent = data["stats"][1]["base_stat"]
+        qs("#defense").textContent = data["stats"][2]["base_stat"]
+        qs("#special-attack").textContent =
+          data["stats"][3]["base_stat"]
+        qs("#special-defense").textContent =
+          data["stats"][4]["base_stat"]
+        qs("#speed").textContent = data["stats"][5]["base_stat"]
+        qs("#sprite").src = `sprites/pokemon/${data.id}.png`
+      } catch (e) {
+        error(e)
+        alert("Pok&eacute;mon not found")
+      }
+    }
+  })()
+</script>
+</html>

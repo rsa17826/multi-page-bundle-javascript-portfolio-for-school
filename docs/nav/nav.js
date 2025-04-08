@@ -2,7 +2,7 @@
   if (!window.loadlib) {
     alert("include allfuncs first")
   }
-  if ((location.hash == "#nonav")) {
+  if (location.hash == "#nonav") {
     return
   }
   const a = loadlib("allfuncs")
@@ -56,6 +56,7 @@ nav > a {
       src: "/multi-page-bundle-javascript-portfolio-for-school/imgs/mainlogo.png",
       maxWidth: "15px",
       maxHeight: "15px",
+      alt: "favicon",
     }),
     a.newelem("a", {
       innerHTML: "home",
@@ -88,6 +89,14 @@ nav > a {
     a.newelem("a", {
       innerHTML: "custom start page",
       href: "/multi-page-bundle-javascript-portfolio-for-school/custom start page/",
+    }),
+    a.newelem("a", {
+      innerHTML: "Build a Pok&eacute;mon Search App Project",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/Build a Pok\u00E9mon Search App Project/",
+    }),
+    a.newelem("a", {
+      innerHTML: "Build a Cash Register Project",
+      href: "/multi-page-bundle-javascript-portfolio-for-school/Build a Cash Register Project/",
     }),
     (colorPicker = a.newelem("input", {
       type: "color",
