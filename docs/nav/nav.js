@@ -112,7 +112,7 @@ nav > a {
     .trim()
   setcol(
     localStorage.rootColor ||
-      getComputedStyle(document.documentElement)
+      "#36393f"
         .getPropertyValue("--root-color")
         .trim()
   )
@@ -138,4 +138,73 @@ nav > a {
       mode: "open",
     })
     .appendChild(elems)
+
+  class CustomDropdown extends HTMLElement {
+    constructor() {
+      super()
+      this.attachShadow({ mode: "open" }) // Attach shadow DOM
+      this.shadowRoot.innerHTML = `
+              <style>
+                  :host {
+                      transition-behavior: allow-discrete;
+                      display: flex;
+                      cursor: pointer;
+                      margin: 10px 0;
+                      width:fit-content;
+                      padding: 10px;
+                      padding-right: 30px;
+                      background-color: #000000;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                      position: relative;
+                  }
+                  .content {
+                      display: none;
+                      padding: 10px;
+                      background-color: #aaa;
+                      border: 1px solid #ccc;
+                      border-radius: 5px;
+                      margin-top: 5px;
+                  }
+                  .arrow {
+                      position: absolute;
+                      right: 10px;
+                      top: 50%;
+                      transform: translateY(-50%);
+                      transition: transform 0.3s;
+                  }
+                  .expanded .arrow {
+                      transform: translateY(-50%) rotate(180deg);
+                  }
+                  .dropdown.expanded + .content{
+                  display:inline block;
+                  position:absolute;
+                  z-index:15;
+                  }
+              </style>
+              <div class="dropdown">
+                  <span>${this.getAttribute("text")}</span>
+                  <span class="arrow">&darr;</span>
+              </div>
+                  <slot class="content"></slot>
+          `
+      this.content = this.shadowRoot.querySelector(".content")
+      this.arrow = this.shadowRoot.querySelector(".arrow")
+      this.dropdown = this.shadowRoot.querySelector(".dropdown")
+      a.listen(this.dropdown, ["mousedown", "mouseup"], (e) => {
+        e.preventDefault()
+      })
+      a.listen(document.body, "click", (e) => {
+        if (e.target == this) {
+          return
+        }
+        this.dropdown.classList.remove("expanded")
+      })
+      a.listen(this.dropdown, "click", (e) => {
+        e.preventDefault()
+        this.dropdown.classList.toggle("expanded")
+      })
+    }
+  }
+  customElements.define("dropdown-", CustomDropdown)
 })()
