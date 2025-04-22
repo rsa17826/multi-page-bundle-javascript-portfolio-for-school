@@ -110,10 +110,7 @@ nav > a {
   var defaultColor = getComputedStyle(document.documentElement)
     .getPropertyValue("--root-color")
     .trim()
-  setcol(
-    localStorage.rootColor ||
-      "#36393f".getPropertyValue("--root-color").trim()
-  )
+  setcol(localStorage.rootColor || defaultColor)
   function setcol(col) {
     document.documentElement.style.setProperty(
       "--root-color",
